@@ -1,0 +1,42 @@
+<ul class="nav nav-pills">
+  <li class="<%= q_name_pill_class(nil)%>" >
+    <a href="<%= index_path %>"><%= "All (#{@klass.count})" %></a>
+  </li>
+  <% @klass.queue_counts.each do |q_name, count| %>
+    <li class="<%= q_name_pill_class(q_name) %>">
+    <a href="<%= index_path(q_name: q_name) %>"><%= "#{q_name} (#{count})" %></a>
+    </li>
+  <% end %>
+</ul>
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Queue</th>
+      <th>Method</th>
+      <th>Arguments</th>
+      <% if @klass.columns_hash['not_before'] %>
+        <th>Run At</th>
+      <% end %>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @queue_classic_jobs.each do |queue_classic_job| %>
+    <tr>
+      <td><%= queue_classic_job.q_name  %></td>
+      <td><%= queue_classic_job.method  %></td>
+      <td><%= queue_classic_job.arguments.inspect%></td>
+      <% if @klass.columns_hash['not_before'] %>
+        <td><%= l queue_classic_job.not_before %></td>
+      <% end %>
+      <td><%= link_to 'Destroy', queue_classic_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br />
+
+

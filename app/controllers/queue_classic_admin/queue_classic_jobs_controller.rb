@@ -6,23 +6,17 @@ module QueueClassicAdmin
       filter_jobs(QueueClassicJob)
     end
 
-    def scheduled
-      filter_jobs(QueueClassicLaterJob)
-      render action: 'index'
-    end
-
     def destroy
       @queue_classic_job = QueueClassicJob.find(params[:id])
       @queue_classic_job.destroy
       redirect_to queue_classic_jobs_url
     end
-    private 
 
-    def filter_jobs(klass)
-      @queue_classic_jobs = klass.scoped
-      if params[:q_name].present?
-        @queue_classic_jobs = @queue_classic_jobs.where(q_name: params[:q_name])
-      end
+    private
+    def index_path(*params)
+      queue_classic_jobs_path(*params)
     end
+
+    helper_method :index_path
   end
 end
