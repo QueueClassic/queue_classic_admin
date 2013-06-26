@@ -9,5 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require twitter-bootstrap-static/bootstrap
  *= require_tree .
  */
+
+body .container-fluid .row-fluid {
+  padding-top: 60px;
+}
