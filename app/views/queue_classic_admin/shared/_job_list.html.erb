@@ -13,6 +13,7 @@
   <thead>
     <tr>
       <th>Queue</th>
+      <th>Enqueued At</th>
       <th>Method</th>
       <th>Arguments</th>
       <% if @klass.columns_hash['not_before'] %>
@@ -26,10 +27,17 @@
   <% @queue_classic_jobs.each do |queue_classic_job| %>
     <tr>
       <td><%= queue_classic_job.q_name  %></td>
+      <td>
+        <%= time_ago_in_words queue_classic_job.created_at %>
+        <br/>
+        <small>
+          (<%= queue_classic_job.created_at %>)
+        </small>
+      </td>
       <td><%= queue_classic_job.method  %></td>
       <td><%= queue_classic_job.arguments.inspect%></td>
       <% if @klass.columns_hash['not_before'] %>
-        <td><%= l queue_classic_job.not_before %></td>
+        <td><%= queue_classic_job.not_before %></td>
       <% end %>
       <td><%= link_to 'Destroy', queue_classic_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
     </tr>
