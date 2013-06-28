@@ -13,6 +13,7 @@
   <thead>
     <tr>
       <th>Queue</th>
+      <th>ID</th>
       <th>Enqueued At</th>
       <th>Method</th>
       <th>Arguments</th>
@@ -20,7 +21,7 @@
         <th>Run At</th>
       <% end %>
       <th>
-        <%= 
+        <%=
           link_to "Purge All", url_for(params.merge(action: 'purge')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
         %>
       </th>
@@ -31,6 +32,7 @@
   <% @queue_classic_jobs.each do |queue_classic_job| %>
     <tr>
       <td><%= queue_classic_job.q_name  %></td>
+      <td><%= queue_classic_job.id  %></td>
       <td>
         <%= time_ago_in_words queue_classic_job.created_at %>
         <br/>
