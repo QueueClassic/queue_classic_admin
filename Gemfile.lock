@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    queue_classic_admin (0.0.4)
+    queue_classic_admin (0.0.5)
       pg
       queue_classic (>= 2.1.0)
       rails (~> 3.2.13)
