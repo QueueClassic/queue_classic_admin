@@ -19,7 +19,11 @@
       <% if @klass.columns_hash['not_before'] %>
         <th>Run At</th>
       <% end %>
-      <th></th>
+      <th>
+        <%= 
+          link_to "Purge All", url_for(params.merge(action: 'purge')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
+        %>
+      </th>
     </tr>
   </thead>
 
@@ -44,6 +48,8 @@
   <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @queue_classic_jobs, renderer: BootstrapPagination::Rails %>
 
 <br />
 

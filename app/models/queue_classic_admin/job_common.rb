@@ -15,6 +15,8 @@ module QueueClassicAdmin
     def self.included(receiver)
       receiver.extend ClassMethods
       receiver.send :include, InstanceMethods
+      receiver.attr_accessible :q_name
+      receiver.per_page = 50
     end
   end
 end
