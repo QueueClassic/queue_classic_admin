@@ -8,3 +8,4 @@ spec/dummy/.sass-cache
 tags
 .rvmrc
 .DS_Store
+test/
