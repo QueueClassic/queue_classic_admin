@@ -1,8 +1,13 @@
 module QueueClassicAdmin
   module JobCommon
     module ClassMethods
+      KNOWN_COLUMN = ["id", "q_name", "method", "args", "locked_at", "created_at", "not_before"]
       def queue_counts
         group(:q_name).count
+      end
+
+      def extra_columns
+        columns.map(&:name) - KNOWN_COLUMN
       end
     end
   

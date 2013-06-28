@@ -20,6 +20,9 @@
       <% if @klass.columns_hash['not_before'] %>
         <th>Run At</th>
       <% end %>
+      <% @klass.extra_columns.each do |column| %>
+        <th><%= column %></th>
+      <% end %>
       <th>
         <%=
           link_to "Purge All", url_for(params.merge(action: 'purge')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
@@ -45,6 +48,11 @@
       <% if @klass.columns_hash['not_before'] %>
         <td><%= queue_classic_job.not_before %></td>
       <% end %>
+
+      <% @klass.extra_columns.each do |column| %>
+        <td><%= queue_classic_job[column] %></th>
+      <% end %>
+
       <td><%= link_to 'Destroy', queue_classic_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
     </tr>
   <% end %>
