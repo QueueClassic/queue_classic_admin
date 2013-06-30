@@ -34,6 +34,12 @@
       <td><%= queue_classic_job.q_name  %></td>
       <td>
         <%= time_ago_in_words queue_classic_job.created_at %>
+        <br/>
+        <small>
+          (<%= queue_classic_job.created_at %>)
+        </small>
+      </td>
+      <td>
         <%= time_ago_in_words queue_classic_job.locked_at %>
         <br/>
         <small>
