@@ -40,11 +40,15 @@
         </small>
       </td>
       <td>
+        <% if queue_classic_job.locked_at.nil? %>
+        &mdash;
+        <% else %>
         <%= time_ago_in_words queue_classic_job.locked_at %>
         <br/>
         <small>
-          (<%= queue_classic_job.created_at %>)
+          (<%= queue_classic_job.locked_at %>)
         </small>
+        <% end %>
       </td>
       <td><%= queue_classic_job.method  %></td>
       <td><%= queue_classic_job.arguments.inspect%></td>
