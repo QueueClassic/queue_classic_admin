@@ -40,7 +40,7 @@
         </small>
       </td>
       <td>
-        <% if queue_classic_job.locked_at.nil? %>
+        <% if queue_classic_job[:locked_at].nil? %>
         &mdash;
         <% else %>
         <%= time_ago_in_words queue_classic_job.locked_at %>
