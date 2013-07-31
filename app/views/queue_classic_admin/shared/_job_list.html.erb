@@ -65,7 +65,12 @@
         <td><%= queue_classic_job[column] %></th>
       <% end %>
 
-      <td><%= link_to 'Destroy', queue_classic_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+      <td>
+        <%= link_to 'Destroy', queue_classic_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        <% if queue_classic_job[:locked_at] %>
+          <%= link_to 'Unlock', unlock_queue_classic_job_path(queue_classic_job), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>

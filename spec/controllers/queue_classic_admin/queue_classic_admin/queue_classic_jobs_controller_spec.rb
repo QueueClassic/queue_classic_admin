@@ -33,5 +33,13 @@ module QueueClassicAdmin
       QueueClassicJob.where(q_name: 'foo').count.should == 0
       QueueClassicJob.where(q_name: 'bar').count.should == 1
     end
+
+    it "unlocks locked job" do
+      locked_job = queue_classic_job
+      locked_job.locked_at = Time.now
+      locked_job.save!
+      post :unlock, use_route: "queue_classic_admin", id: locked_job 
+      locked_job.reload.locked_at.should be_nil
+    end
   end
 end
