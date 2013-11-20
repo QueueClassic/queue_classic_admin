@@ -19,19 +19,46 @@ module QueueClassicAdmin
       response.code.to_i.should == 302
     end
 
-    it "should destroy purge everything" do
-      queue_classic_job 
-      delete :purge, use_route: "queue_classic_admin"
-      QueueClassicJob.count.should == 0
+    context "#destroy_all" do
+      it "should destroy everything" do
+        queue_classic_job 
+        delete :destroy_all, use_route: "queue_classic_admin"
+        QueueClassicJob.count.should == 0
+      end
+
+      it "should destroy all in the filtered queue" do
+        QueueClassicJob.create! q_name: 'foo'
+        QueueClassicJob.create! q_name: 'bar'
+
+        delete :destroy_all, use_route: "queue_classic_admin", q_name: 'foo'
+        QueueClassicJob.where(q_name: 'foo').count.should == 0
+        QueueClassicJob.where(q_name: 'bar').count.should == 1
+      end
     end
 
-    it "should destroy purge queue" do
-      QueueClassicJob.create! q_name: 'foo'
-      QueueClassicJob.create! q_name: 'bar'
+    context "#unlock_all" do
+      def lock_job job
+        job.locked_at = lock_time
+        job.save!
+      end
 
-      delete :purge, use_route: "queue_classic_admin", q_name: 'foo'
-      QueueClassicJob.where(q_name: 'foo').count.should == 0
-      QueueClassicJob.where(q_name: 'bar').count.should == 1
+      let(:lock_time) { Time.now }
+
+      before do
+        lock_job QueueClassicJob.create!(q_name: 'bar')
+        lock_job QueueClassicJob.create!(q_name: 'foo')
+      end
+
+      it "should unlock everything" do
+        delete :unlock_all, use_route: "queue_classic_admin"
+        QueueClassicJob.where(locked_at: nil).count.should == 2
+      end
+
+      it "should unlock all in the filtered queue" do
+        delete :unlock_all, use_route: "queue_classic_admin", q_name: 'foo'
+        QueueClassicJob.where(q_name: 'foo').where('locked_at IS NULL').count.should == 1
+        QueueClassicJob.where(q_name: 'bar', locked_at: lock_time).count.should == 1
+      end
     end
   end
 end
