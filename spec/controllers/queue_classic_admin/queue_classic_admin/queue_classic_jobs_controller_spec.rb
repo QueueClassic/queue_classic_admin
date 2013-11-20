@@ -10,13 +10,15 @@ module QueueClassicAdmin
       assigns(:queue_classic_jobs).should_not be_nil
     end
   
-    it "should destroy queue_classic_job" do
-      queue_classic_job
-      expect do
-        delete :destroy, id: queue_classic_job.id, use_route: "queue_classic_admin"
-      end.to change(QueueClassicJob, :count).by(-1)
-  
-      response.code.to_i.should == 302
+    context "#destroy" do
+      it "should destroy queue_classic_job" do
+        queue_classic_job
+        expect do
+          delete :destroy, id: queue_classic_job.id, use_route: "queue_classic_admin"
+        end.to change(QueueClassicJob, :count).by(-1)
+    
+        response.code.to_i.should == 302
+      end
     end
 
     context "#destroy_all" do
@@ -58,6 +60,16 @@ module QueueClassicAdmin
         delete :unlock_all, use_route: "queue_classic_admin", q_name: 'foo'
         QueueClassicJob.where(q_name: 'foo').where('locked_at IS NULL').count.should == 1
         QueueClassicJob.where(q_name: 'bar', locked_at: lock_time).count.should == 1
+      end
+    end
+
+    context "#unlock" do
+      it "unlocks locked job" do
+        locked_job = queue_classic_job
+        locked_job.locked_at = Time.now
+        locked_job.save!
+        post :unlock, use_route: "queue_classic_admin", id: locked_job 
+        locked_job.reload.locked_at.should be_nil
       end
     end
   end

@@ -9,6 +9,10 @@ QueueClassicAdmin::Engine.routes.draw do
     collection do
       delete :purge
     end
+
+    member do
+      post :unlock
+    end
   end
 
   root to: "queue_classic_jobs#index"

@@ -13,15 +13,20 @@
   <thead>
     <tr>
       <th>Queue</th>
+      <th>ID</th>
       <th>Enqueued At</th>
+      <th>Locked At</th>
       <th>Method</th>
       <th>Arguments</th>
       <% if @klass.columns_hash['not_before'] %>
         <th>Run At</th>
       <% end %>
+      <% @klass.extra_columns.each do |column| %>
+        <th><%= column %></th>
+      <% end %>
       <th>
-        <%= 
-          link_to "Purge All", url_for(params.merge(action: 'purge')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
+        <%=
+          link_to "Destroy All", url_for(params.merge(action: 'destroy_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
         %>
         <%=
           link_to "Unlock All", url_for(params.merge(action: 'unlock_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
@@ -34,6 +39,7 @@
   <% @queue_classic_jobs.each do |queue_classic_job| %>
     <tr>
       <td><%= queue_classic_job.q_name  %></td>
+      <td><%= queue_classic_job.id  %></td>
       <td>
         <%= time_ago_in_words queue_classic_job.created_at %>
         <br/>
@@ -41,12 +47,33 @@
           (<%= queue_classic_job.created_at %>)
         </small>
       </td>
+      <td>
+        <% if queue_classic_job[:locked_at].nil? %>
+        &mdash;
+        <% else %>
+        <%= time_ago_in_words queue_classic_job.locked_at %>
+        <br/>
+        <small>
+          (<%= queue_classic_job.locked_at %>)
+        </small>
+        <% end %>
+      </td>
       <td><%= queue_classic_job.method  %></td>
       <td><%= queue_classic_job.arguments.inspect%></td>
       <% if @klass.columns_hash['not_before'] %>
         <td><%= queue_classic_job.not_before %></td>
       <% end %>
-      <td><%= link_to 'Destroy', queue_classic_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+
+      <% @klass.extra_columns.each do |column| %>
+        <td><%= queue_classic_job[column] %></th>
+      <% end %>
+
+      <td>
+        <%= link_to 'Destroy', queue_classic_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        <% if queue_classic_job[:locked_at] %>
+          <%= link_to 'Unlock', unlock_queue_classic_job_path(queue_classic_job), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>
