@@ -19,14 +19,14 @@ module QueueClassicAdmin
     end
     
     def unlock_all
-      filter_jobs(QueueClassicJob).map do |job| 
-        unlock_job(job)
-      end
+      filter_jobs(QueueClassicJob).where('locked_at < ?', 5.minutes.ago).update_all(locked_at: nil)
       redirect_to queue_classic_jobs_url
     end
 
     def unlock
-      unlock_job(@queue_classic_job, true)
+      @queue_classic_job.locked_at = nil
+      @queue_classic_job.save
+      
       redirect_to queue_classic_jobs_url
     end
 
@@ -37,13 +37,6 @@ module QueueClassicAdmin
 
     def get_job
       @queue_classic_job = QueueClassicJob.find(params[:id])
-    end
-
-    def unlock_job job, force_unlock = false
-      if job.locked_at < 5.minutes.ago || force_unlock
-        job.locked_at = nil
-        job.save
-      end
     end
 
     helper_method :index_path
