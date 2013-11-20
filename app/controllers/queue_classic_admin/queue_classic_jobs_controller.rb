@@ -30,12 +30,6 @@ module QueueClassicAdmin
       redirect_to queue_classic_jobs_url
     end
 
-    def unlock
-      @queue_classic_job.locked_at = nil
-      @queue_classic_job.save
-      redirect_to queue_classic_jobs_url
-    end
-
     private
     def index_path(*params)
       queue_classic_jobs_path(*params)
