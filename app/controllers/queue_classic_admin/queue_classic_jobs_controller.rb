@@ -17,10 +17,16 @@ module QueueClassicAdmin
       filter_jobs(QueueClassicJob).delete_all
       redirect_to queue_classic_jobs_url
     end
+    
+    def unlock_all
+      filter_jobs(QueueClassicJob).where('locked_at < ?', 5.minutes.ago).update_all(locked_at: nil)
+      redirect_to queue_classic_jobs_url
+    end
 
     def unlock
       @queue_classic_job.locked_at = nil
       @queue_classic_job.save
+      
       redirect_to queue_classic_jobs_url
     end
 

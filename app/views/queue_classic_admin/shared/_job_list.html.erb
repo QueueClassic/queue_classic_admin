@@ -28,6 +28,9 @@
         <%=
           link_to "Destroy All", url_for(params.merge(action: 'destroy_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
         %>
+        <%=
+          link_to "Unlock All > 5 mins", url_for(params.merge(action: 'unlock_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
+        %>
       </th>
     </tr>
   </thead>
