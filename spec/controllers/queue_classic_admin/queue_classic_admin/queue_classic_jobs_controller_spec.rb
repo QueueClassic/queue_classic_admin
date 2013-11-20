@@ -19,17 +19,17 @@ module QueueClassicAdmin
       response.code.to_i.should == 302
     end
 
-    it "should destroy purge everything" do
+    it "should destroy destroy everything" do
       queue_classic_job 
-      delete :purge, use_route: "queue_classic_admin"
+      delete :destroy_all, use_route: "queue_classic_admin"
       QueueClassicJob.count.should == 0
     end
 
-    it "should destroy purge queue" do
+    it "should destroy all in the filtered queue" do
       QueueClassicJob.create! q_name: 'foo'
       QueueClassicJob.create! q_name: 'bar'
 
-      delete :purge, use_route: "queue_classic_admin", q_name: 'foo'
+      delete :destroy_all, use_route: "queue_classic_admin", q_name: 'foo'
       QueueClassicJob.where(q_name: 'foo').count.should == 0
       QueueClassicJob.where(q_name: 'bar').count.should == 1
     end
