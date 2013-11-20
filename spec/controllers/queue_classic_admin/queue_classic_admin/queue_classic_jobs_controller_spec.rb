@@ -39,27 +39,31 @@ module QueueClassicAdmin
     end
 
     context "#unlock_all" do
-      def lock_job job
+      def lock_job job, lock_time
         job.locked_at = lock_time
         job.save!
       end
 
-      let(:lock_time) { Time.now }
+      let(:broken_time) { 10.minutes.ago }
+      let(:in_progress_time) { Time.now }
 
       before do
-        lock_job QueueClassicJob.create!(q_name: 'bar')
-        lock_job QueueClassicJob.create!(q_name: 'foo')
+        lock_job(QueueClassicJob.create!(q_name: 'bar'), broken_time)
+        lock_job(QueueClassicJob.create!(q_name: 'foo'), broken_time)
+        lock_job(QueueClassicJob.create!(q_name: 'foo'), in_progress_time)
       end
 
-      it "should unlock everything" do
+      it "should unlock everything not currently running" do
         delete :unlock_all, use_route: "queue_classic_admin"
         QueueClassicJob.where(locked_at: nil).count.should == 2
+        QueueClassicJob.where(locked_at: in_progress_time).count.should == 1
       end
 
-      it "should unlock all in the filtered queue" do
+      it "should unlock all not currently running in the filtered queue" do
         delete :unlock_all, use_route: "queue_classic_admin", q_name: 'foo'
         QueueClassicJob.where(q_name: 'foo').where('locked_at IS NULL').count.should == 1
-        QueueClassicJob.where(q_name: 'bar', locked_at: lock_time).count.should == 1
+        QueueClassicJob.where(q_name: 'foo', locked_at: in_progress_time).count.should == 1
+        QueueClassicJob.where(q_name: 'bar', locked_at: broken_time).count.should == 1
       end
     end
 
