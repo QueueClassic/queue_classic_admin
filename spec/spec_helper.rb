@@ -14,6 +14,9 @@ RSpec.configure do |config|
   config.before(:suite) do
     ActiveRecord::Base.connection.execute File.read("spec/schema.sql")
   end
+
+  config.render_views
+  
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

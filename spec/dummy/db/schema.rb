@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130626005404) do
+ActiveRecord::Schema.define(:version => 20140210194951) do
 
   create_table "queue_classic_jobs", :force => true do |t|
     t.string   "q_name"
@@ -21,5 +21,12 @@ ActiveRecord::Schema.define(:version => 20130626005404) do
   end
 
   add_index "queue_classic_jobs", ["q_name", "id"], :name => "idx_qc_on_name_only_unlocked"
+
+  create_table "queue_classic_later_jobs", :id => false, :force => true do |t|
+    t.string   "q_name"
+    t.string   "method"
+    t.text     "args"
+    t.datetime "not_before"
+  end
 
 end

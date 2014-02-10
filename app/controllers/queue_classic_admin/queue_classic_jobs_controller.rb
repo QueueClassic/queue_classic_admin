@@ -39,6 +39,11 @@ module QueueClassicAdmin
       @queue_classic_job = QueueClassicJob.find(params[:id])
     end
 
+    def later?
+      false
+    end
+
     helper_method :index_path
+    helper_method :later?
   end
 end

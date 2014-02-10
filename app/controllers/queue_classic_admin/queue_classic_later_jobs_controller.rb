@@ -23,6 +23,11 @@ module QueueClassicAdmin
       queue_classic_later_jobs_path(*params)
     end
 
+    def later?
+      true
+    end
+
     helper_method :index_path
+    helper_method :later?
   end
 end
