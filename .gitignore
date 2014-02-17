@@ -6,6 +6,5 @@ spec/dummy/log/*.log
 spec/dummy/tmp/
 spec/dummy/.sass-cache
 tags
-.rvmrc
 .DS_Store
 test/

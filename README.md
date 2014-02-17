@@ -23,7 +23,13 @@ Mount in your rails app config/routes.rb file
 
     mount QueueClassicAdmin::Engine => "/queue_classic_admin"
 
-# TODO 
+# Development
 
-- Use something more lightweight than bootstrap
-- Don't die if the queue_classic-later gem is missing
+You can develop with POW by configuring it like so:
+
+```bash
+ln -s $PWD/spec/dummy ~/.pow/qc-admin
+(cd spec/dummy && rake db:create:all db:migrate)
+```
+
+Then go to (http://qc-admin.dev/)[http://qc-admin.dev/].
