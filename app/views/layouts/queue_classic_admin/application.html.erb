@@ -29,7 +29,9 @@
           <div class="container-fluid nav-collapse">
             <ul class="nav">
               <li><%= link_to "Jobs", queue_classic_jobs_path  %></li>
-              <li><%= link_to "Scheduled Jobs", queue_classic_later_jobs_path  %></li>
+              <% if has_qc_later? %>
+                <li><%= link_to "Scheduled Jobs", queue_classic_later_jobs_path %></li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

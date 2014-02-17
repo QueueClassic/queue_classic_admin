@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: dummy_qc_admin_development
+  database: dummy_development_no_later
   pool: 5
   username: postgres
   password:
@@ -9,7 +9,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: dummy_qc_admin_test
+  database: dummy_test_no_later
   pool: 5
   username: postgres
   password:
