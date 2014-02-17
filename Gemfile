@@ -8,7 +8,6 @@ gemspec
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
 gem "queue_classic"
-gem "twitter-bootstrap-rails"
 gem "rspec-rails"
 gem "will_paginate"
 gem "will_paginate-bootstrap"
