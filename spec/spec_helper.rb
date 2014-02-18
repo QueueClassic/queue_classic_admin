@@ -10,11 +10,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 
 RSpec.configure do |config|
-
-  config.before(:suite) do
-    ActiveRecord::Base.connection.execute File.read("spec/schema.sql")
-  end
-
   config.render_views
   
   # ## Mock Framework

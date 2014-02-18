@@ -18,15 +18,17 @@ ActiveRecord::Schema.define(:version => 20140210194951) do
     t.string   "method"
     t.text     "args"
     t.datetime "locked_at"
+    t.datetime "created_at", :null => false
   end
 
   add_index "queue_classic_jobs", ["q_name", "id"], :name => "idx_qc_on_name_only_unlocked"
 
-  create_table "queue_classic_later_jobs", :id => false, :force => true do |t|
+  create_table "queue_classic_later_jobs", :force => true do |t|
     t.string   "q_name"
     t.string   "method"
     t.text     "args"
     t.datetime "not_before"
+    t.datetime "created_at", :null => false
   end
 
 end
