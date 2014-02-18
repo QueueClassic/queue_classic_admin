@@ -1,7 +1,7 @@
 language: ruby
 before_script:
   - "bundle exec rake db:create"
-  - "bundle exec rake db:load RAILS_ENV=test"
+  - "bundle exec rake db:schema:load RAILS_ENV=test"
 rvm:
   - 2.1.0
   - 2.0.0
