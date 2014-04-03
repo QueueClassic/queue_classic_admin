@@ -14,9 +14,12 @@
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
-      <% @column_names.each do |column_name| %>
-        <th><%= column_name %></th>
-      <% end %>
+      <th>Queue</th>
+      <th>ID</th>
+      <th>Enqueued At</th>
+      <th>Locked At</th>
+      <th>Method</th>
+      <th>Arguments</th>
       <th>
         <form method="post" action="queue_classic_jobs/destroy_all" data-confirm="Are you sure?">
           <div><input value="Destroy All" type="submit"/></div>
@@ -28,9 +31,23 @@
   <tbody>
   <% @queue_classic_jobs.each do |queue_classic_job| %>
     <tr>
-      <% @column_names.each do |column_name| %>
-        <td><%= queue_classic_job[column_name] %></td>
-      <% end %>
+      <td><%= queue_classic_job.q_name  %></td>
+      <td><%= queue_classic_job.id  %></td>
+      <td>
+        <%= queue_classic_job.created_at %>
+        <br/>
+        <small>
+          (<%= queue_classic_job.created_at %>)
+        </small>
+      </td>
+      <td>
+        <br/>
+        <small>
+          (<%= queue_classic_job.locked_at %>)
+        </small>
+      </td>
+      <td><%= queue_classic_job['method']  %></td>
+      <td><%= queue_classic_job.arguments.inspect%></td>
 
       <td>
         <form method="post" action="queue_classic_jobs/<%= queue_classic_job.id %>/destroy" data-confirm="Are you sure?">
@@ -43,9 +60,17 @@
           </form>
         <% end %>
       </td>
+    </tr>
   <% end %>
   </tbody>
 </table>
 
 <br />
 
+<% if previous_page? %>
+  <a href="?page=<%= page_number - 1 %>">Previous Page</a>
+<% end %>
+
+<% if next_page? %>
+  <a href="?page=<%= page_number + 1 %>">Next Page</a>
+<% end %>
