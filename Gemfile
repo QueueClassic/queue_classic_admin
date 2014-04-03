@@ -10,7 +10,7 @@ gem 'capybara'
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
-gem "queue_classic"
+gem "queue_classic", '3.0.0rc'
 gem "rspec-rails"
 gem "will_paginate"
 gem "will_paginate-bootstrap"
