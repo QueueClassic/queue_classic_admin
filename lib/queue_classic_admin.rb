@@ -16,6 +16,21 @@ module QueueClassic
       erb :index
     end
 
+    post '/queue_classic_jobs/:id/destroy' do
+      execute "DELETE FROM queue_classic_jobs WHERE id = $1", [params[:id]]
+      redirect '/'
+    end
+
+    post '/queue_classic_jobs/:id/unlock' do
+      execute "UPDATE queue_classic_jobs SET locked_at = NULL WHERE id = $1", [params[:id]]
+      redirect '/'
+    end
+
+    post '/queue_classic_jobs/destroy_all' do
+      execute "DELETE FROM queue_classic_jobs"
+      redirect '/'
+    end
+
     helpers do
       def get_column_names(table_name)
         @_column_name_cache ||= {}
