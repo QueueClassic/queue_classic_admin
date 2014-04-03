@@ -4,7 +4,8 @@ require 'queue_classic'
 module QueueClassic
   class Admin < Sinatra::Base
     get '/' do
-      "Hello World"
+      @queue_classic_jobs = []
+      erb :index
     end
   end
 end
