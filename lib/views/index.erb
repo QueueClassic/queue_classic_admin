@@ -1,5 +1,16 @@
 <h1>Jobs</h1>
 
+<ul class="nav nav-pills">
+  <li class="<%= q_name_pill_class(nil)%>" >
+    <a href="?"><%= "All (#{@queue_counts.inject(0){|sum,qc| qc.count.to_i + sum }})" %></a>
+  </li>
+  <% @queue_counts.each do |queue_count| %>
+    <li class="<%= q_name_pill_class(queue_count.q_name) %>">
+    <a href="?q_name=<%= queue_count.q_name %>"><%= "#{queue_count.q_name} (#{queue_count.count})" %></a>
+    </li>
+  <% end %>
+</ul>
+
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
@@ -29,7 +40,6 @@
         <small>
           (<%= queue_classic_job.locked_at %>)
         </small>
-        <% end %>
       </td>
       <td><%= queue_classic_job['method']  %></td>
       <td><%= queue_classic_job.arguments.inspect%></td>
