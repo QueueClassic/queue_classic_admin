@@ -19,6 +19,11 @@ module QueueClassic
       redirect '/'
     end
 
+    post '/queue_classic_jobs/:id/unlock' do
+      execute "UPDATE queue_classic_jobs SET locked_at = NULL WHERE id = $1", [params[:id]]
+      redirect '/'
+    end
+
     helpers do
       def q_name_pill_class(name)
         if params[:q_name] == name

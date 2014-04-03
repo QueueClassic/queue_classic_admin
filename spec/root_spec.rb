@@ -28,4 +28,16 @@ describe "The root page", :type => :feature do
     click_button "Destroy"
     page.should have_no_content "Class.method"
   end
+
+  it "should allow the user to unlock jobs" do
+    QC.enqueue "Class.method"
+    execute_sql "UPDATE queue_classic_jobs SET locked_at = now()"
+
+    visit '/'
+
+    page.should have_button "Unlock"
+    click_button "Unlock"
+    page.should have_no_button "Unlock"
+    execute_sql("SELECT * FROM queue_classic_jobs WHERE locked_at IS NOT NULL").should == []
+  end
 end
