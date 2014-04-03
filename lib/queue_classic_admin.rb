@@ -1,4 +1,10 @@
-require "queue_classic_admin/engine"
+require 'sinatra'
+require 'queue_classic'
 
-module QueueClassicAdmin
+module QueueClassic
+  class Admin < Sinatra::Base
+    get '/' do
+      "Hello World"
+    end
+  end
 end

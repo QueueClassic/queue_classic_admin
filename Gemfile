@@ -6,6 +6,7 @@ source "http://rubygems.org"
 gemspec
 
 gem 'sinatra'
+gem 'capybara'
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
