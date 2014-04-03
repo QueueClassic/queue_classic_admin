@@ -24,6 +24,11 @@ module QueueClassic
       redirect '/'
     end
 
+    post '/queue_classic_jobs/destroy_all' do
+      execute "DELETE FROM queue_classic_jobs"
+      redirect '/'
+    end
+
     helpers do
       def q_name_pill_class(name)
         if params[:q_name] == name
