@@ -59,4 +59,24 @@ describe "The root page", :type => :feature do
     page.should have_no_content "Class.method"
     execute_sql("SELECT * FROM queue_classic_jobs").should == []
   end
+
+  it "should allow the user to page back and forth between results" do
+    101.times { |i| QC.enqueue "Class.method#{i}" }
+    visit "/"
+    page.should have_content "Class.method100"
+    page.should have_content "Class.method51"
+    page.should have_no_content "Class.method50"
+
+    click_link "Next Page"
+    page.should have_content "Class.method50"
+    page.should have_content "Class.method1"
+    page.should have_no_content "Class.method0"
+
+    click_link "Next Page"
+    page.should have_no_content "Class.method1"
+    page.should have_content "Class.method0"
+
+    click_link "Previous Page"
+    page.should have_content "Class.method1"
+  end
 end
