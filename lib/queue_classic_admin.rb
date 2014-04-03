@@ -3,8 +3,11 @@ require 'queue_classic'
 
 module QueueClassic
   class Admin < Sinatra::Base
-    get '/' do
-      table_name = QC::TABLE_NAME
+    get '/:table_name?' do
+      @tables = get_table_names
+      table_name = params[:table_name] || QC::TABLE_NAME
+      halt(404, "Invalid table.") unless @tables.include?(table_name)
+
       @column_names = get_column_names(table_name)
       if params[:q_name]
         @queue_classic_jobs = execute("SELECT * FROM #{table_name} WHERE q_name = $1", [params[:q_name]])
@@ -41,6 +44,15 @@ module QueueClassic
         end
 
         @_column_name_cache[table_name]
+      end
+
+      def get_table_names
+        unless @_table_name_cache
+          tables = execute("SELECT table_name FROM information_schema.tables WHERE table_name ILIKE 'queue_classic%'");
+          @_table_name_cache = tables.map {|table| table.table_name }
+        end
+
+        @_table_name_cache
       end
 
       def q_name_pill_class(name)

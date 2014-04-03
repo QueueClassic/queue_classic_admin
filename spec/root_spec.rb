@@ -7,6 +7,17 @@ describe "The root page", :type => :feature do
     page.should have_content "Class.method"
   end
 
+  it "should support showing QC later jobs" do
+    visit '/'
+    click_link 'Later jobs'
+    page.should have_content "not_before"
+  end
+
+  it "should error if the table isn't allowed" do
+    visit '/non-existant-table'
+    page.should have_content('Invalid table.')
+  end
+
   it "should allow the user to switch between job queues" do
     QC.enqueue "Default.method"
     QC::Queue.new("named_queue").enqueue("Named.method")

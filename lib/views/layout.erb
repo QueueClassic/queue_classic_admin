@@ -30,6 +30,10 @@
           <div class="container-fluid nav-collapse">
             <ul class="nav">
               <li><a href="/">Jobs</a></li>
+              <% (@tables - [QC::TABLE_NAME]).each do |table|
+                %>
+              <li><a href="/<%= table %>"><%= table.sub('queue_classic_', '').sub('_', ' ').capitalize %></a></li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
