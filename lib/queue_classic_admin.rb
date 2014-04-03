@@ -4,17 +4,30 @@ require 'queue_classic'
 module QueueClassic
   class Admin < Sinatra::Base
     get '/' do
+      table_name = QC::TABLE_NAME
+      @column_names = get_column_names(table_name)
       if params[:q_name]
-        @queue_classic_jobs = execute("SELECT * FROM queue_classic_jobs WHERE q_name = $1", [params[:q_name]])
+        @queue_classic_jobs = execute("SELECT * FROM #{table_name} WHERE q_name = $1", [params[:q_name]])
       else
-        @queue_classic_jobs = execute("SELECT * FROM queue_classic_jobs")
+        @queue_classic_jobs = execute("SELECT * FROM #{table_name}")
       end
 
-      @queue_counts = execute("SELECT q_name, count(*) FROM queue_classic_jobs GROUP BY q_name")
+      @queue_counts = execute("SELECT q_name, count(*) FROM #{table_name} GROUP BY q_name")
       erb :index
     end
 
     helpers do
+      def get_column_names(table_name)
+        @_column_name_cache ||= {}
+
+        unless @_column_name_cache[table_name]
+          columns = execute("SELECT column_name FROM information_schema.columns WHERE table_name = $1", [table_name]);
+          @_column_name_cache[table_name] = columns.map {|column| column.column_name }
+        end
+
+        @_column_name_cache[table_name]
+      end
+
       def q_name_pill_class(name)
         if params[:q_name] == name
           "active"

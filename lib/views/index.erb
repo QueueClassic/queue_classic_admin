@@ -14,35 +14,18 @@
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th>Queue</th>
-      <th>ID</th>
-      <th>Enqueued At</th>
-      <th>Locked At</th>
-      <th>Method</th>
-      <th>Arguments</th>
+      <% @column_names.each do |column_name| %>
+        <th><%= column_name %></th>
+      <% end %>
     </tr>
   </thead>
 
   <tbody>
   <% @queue_classic_jobs.each do |queue_classic_job| %>
     <tr>
-      <td><%= queue_classic_job.q_name  %></td>
-      <td><%= queue_classic_job.id  %></td>
-      <td>
-        <%= queue_classic_job.created_at %>
-        <br/>
-        <small>
-          (<%= queue_classic_job.created_at %>)
-        </small>
-      </td>
-      <td>
-        <br/>
-        <small>
-          (<%= queue_classic_job.locked_at %>)
-        </small>
-      </td>
-      <td><%= queue_classic_job['method']  %></td>
-      <td><%= queue_classic_job.arguments.inspect%></td>
+      <% @column_names.each do |column_name| %>
+        <td><%= queue_classic_job[column_name] %></td>
+      <% end %>
     </tr>
   <% end %>
   </tbody>
