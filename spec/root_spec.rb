@@ -19,4 +19,13 @@ describe "The root page", :type => :feature do
     page.should have_content "Named.method"
     page.should have_no_content "Default.method"
   end
+
+  it "should allow the user to delete jobs" do
+    QC.enqueue "Class.method"
+    visit "/"
+
+    page.should have_content "Class.method"
+    click_button "Destroy"
+    page.should have_no_content "Class.method"
+  end
 end

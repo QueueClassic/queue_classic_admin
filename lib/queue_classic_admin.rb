@@ -14,6 +14,11 @@ module QueueClassic
       erb :index
     end
 
+    post '/queue_classic_jobs/:id/destroy' do
+      execute "DELETE FROM queue_classic_jobs WHERE id = $1", [params[:id]]
+      redirect '/'
+    end
+
     helpers do
       def q_name_pill_class(name)
         if params[:q_name] == name

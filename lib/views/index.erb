@@ -43,6 +43,12 @@
       </td>
       <td><%= queue_classic_job['method']  %></td>
       <td><%= queue_classic_job.arguments.inspect%></td>
+
+      <td>
+        <form method="post" action="queue_classic_jobs/<%= queue_classic_job.id %>/destroy" data-confirm="Are you sure?">
+          <div><input value="Destroy" type="submit"/></div>
+        </form>
+      </td>
     </tr>
   <% end %>
   </tbody>
