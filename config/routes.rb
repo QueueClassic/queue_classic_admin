@@ -13,6 +13,7 @@ QueueClassicAdmin::Engine.routes.draw do
 
     member do
       post :unlock
+      post :custom
     end
   end
 
