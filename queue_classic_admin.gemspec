@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.version     = QueueClassicAdmin::VERSION
   s.authors     = ["Simon Mathieu"]
   s.email       = ["simon.math@gmail.com"]
+  s.license     = 'MIT'
   s.homepage    = "https://github.com/rainforestapp/queue_classic_admin"
   s.summary     = "An admin interface for QueueClassic"
   s.description = "An admin interface for QueueClassic"
