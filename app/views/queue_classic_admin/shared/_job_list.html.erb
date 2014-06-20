@@ -19,17 +19,17 @@
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th>Queue</th>
-      <th>ID</th>
-      <th>Enqueued At</th>
-      <th>Locked At</th>
-      <th>Method</th>
-      <th>Arguments</th>
+      <%= sortable_column :queue_name, "Queue" %>
+      <%= sortable_column :id, "ID" %>
+      <%= sortable_column :created_at, "Enqueued At" %>
+      <%= sortable_column :locked_at, "Locked At" %>
+      <%= sortable_column :method, "Method" %>
+      <%= sortable_column :args, "Arguments" %>
       <% if @klass.columns_hash['not_before'] %>
         <th>Run At</th>
       <% end %>
       <% @klass.extra_columns.each do |column| %>
-        <th><%= column %></th>
+        <%= sortable_column column, column.titleize %>
       <% end %>
       <th>
         <%=
