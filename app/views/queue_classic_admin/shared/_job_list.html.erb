@@ -9,28 +9,35 @@
   <% end %>
 </ul>
 
+<div id="search">
+  <form>
+    <label for="search">Search</label>
+    <input name="search" placeholder="search" value="<%= params[:search] %>"/>
+  </form>
+</div>
+
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th>Queue</th>
-      <th>ID</th>
-      <th>Enqueued At</th>
-      <th>Locked At</th>
-      <th>Method</th>
-      <th>Arguments</th>
+      <%= sortable_column :queue_name, "Queue" %>
+      <%= sortable_column :id, "ID" %>
+      <%= sortable_column :created_at, "Enqueued At" %>
+      <%= sortable_column :locked_at, "Locked At" %>
+      <%= sortable_column :method, "Method" %>
+      <%= sortable_column :args, "Arguments" %>
       <% if @klass.columns_hash['not_before'] %>
         <th>Run At</th>
       <% end %>
       <% @klass.extra_columns.each do |column| %>
-        <th><%= column %></th>
+        <%= sortable_column column, column.titleize %>
       <% end %>
       <th>
         <%=
-          link_to "Destroy All", url_for(params.merge(action: 'destroy_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
+          link_to "Destroy Matching", url_for(params.merge(action: 'destroy_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
         %>
         <% unless later? %>
           <%=
-            link_to "Unlock All > 5 mins", url_for(params.merge(action: 'unlock_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :put}
+            link_to "Unlock Matching > 5 mins", url_for(params.merge(action: 'unlock_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :put}
           %>
         <% end %>
       </th>
