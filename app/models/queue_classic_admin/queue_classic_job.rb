@@ -15,12 +15,6 @@ module QueueClassicAdmin
 
       wildcard_query = ["%", query, "%"].join
       relation.where(sql, *([wildcard_query] * SEARCHABLE_COLUMNS.size))
-
-      # rel = relation
-      # SEARCH_FIELDS.each do |f|
-      #   rel = rel.where("#{f} LIKE '%#{query}%'")
-      # end
-      # rel
     end
   end
 end
