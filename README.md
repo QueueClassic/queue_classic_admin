@@ -14,6 +14,16 @@ An admin interface for the [queue_classic](https://github.com/ryandotsmith/queue
 * Delete entire queues
 * Delete jobs
 
+# Configuration
+
+## Custom searchable fields
+
+```ruby
+QueueClassicJob.searchable_columns << :my_custom_fields
+
+```
+
+
 # Install
 
 Copy and run the migrations
