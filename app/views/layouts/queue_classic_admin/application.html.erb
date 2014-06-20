@@ -26,18 +26,16 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="/">Queue Classic Admin</a>
-          <div class="container-fluid nav-collapse">
-            <ul class="nav">
-              <li><%= link_to "Jobs", queue_classic_jobs_path  %></li>
-              <% if has_qc_later? %>
-                <li><%= link_to "Scheduled Jobs", queue_classic_later_jobs_path %></li>
-              <% end %>
-            </ul>
-            <dl class="stats">
-              <dt>Running Jobs</dt>
-              <dd><%= stats.running_job_count %></dd>
-            </dl>
-          </div><!--/.nav-collapse -->
+          <ul class="nav">
+            <li><%= link_to "Jobs", queue_classic_jobs_path  %></li>
+            <% if has_qc_later? %>
+              <li><%= link_to "Scheduled Jobs", queue_classic_later_jobs_path %></li>
+          <% end %>
+          </ul>
+          <dl class="stats pull-right">
+            <dt>Running Jobs</dt>
+            <dd><%= stats.running_job_count %></dd>
+          </dl>
         </div>
       </div>
     </div>
