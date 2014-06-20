@@ -16,3 +16,9 @@
 body .container-fluid .row-fluid {
   padding-top: 60px;
 }
+
+
+dl dt,
+dl dd {
+  display: inline-block;
+}

@@ -20,6 +20,11 @@ div.field, div.actions {
   margin-bottom: 10px;
 }
 
+dl dt,
+dl dd {
+  display: inline-block;
+}
+
 #notice {
   color: green;
 }

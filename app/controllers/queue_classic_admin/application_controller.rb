@@ -15,5 +15,10 @@ module QueueClassicAdmin
       end
       @queue_classic_jobs
     end
+
+    helper_method :stats
+    def stats
+      Stats.new
+    end
   end
 end
