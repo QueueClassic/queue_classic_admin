@@ -26,20 +26,13 @@ module QueueClassicAdmin
     def unlock
       @queue_classic_job.locked_at = nil
       @queue_classic_job.save
-<<<<<<< HEAD
-      
       redirect_to :back
-=======
-
-      redirect_to queue_classic_jobs_url
     end
 
     def custom
       custom_action = QueueClassicAdmin.custom_actions[params[:custom_action]]
       custom_action.action.call(@queue_classic_job)
-
-      redirect_to queue_classic_jobs_url
->>>>>>> e6bab40a9017716d1e09498f1afe89e4e7b52de9
+      redirect_to :back
     end
 
     private
