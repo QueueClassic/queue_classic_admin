@@ -14,15 +14,14 @@ Gem::Specification.new do |s|
   s.summary     = "An admin interface for QueueClassic"
   s.description = "An admin interface for QueueClassic"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", ">= 3.2.13"
-  s.add_dependency "queue_classic", ">= 2.1.0"
+  s.add_dependency "sinatra"
+  s.add_dependency "queue_classic", "3.0.0rc"
+  s.add_dependency "queue_classic-later"
   s.add_dependency "pg"
-  s.add_dependency "will_paginate", ">= 3.0.0"
-  s.add_dependency "will_paginate-bootstrap", ">= 0.2.0"
   
-  s.add_development_dependency "twitter-bootstrap-rails"
-  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "capybara"
+  s.add_development_dependency "rspec"
 end

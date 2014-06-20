@@ -16,25 +16,8 @@ An admin interface for the [queue_classic](https://github.com/ryandotsmith/queue
 
 # Install
 
-Copy and run the migrations
-
-    rake queue_classic_admin:install:migrations
-    rake db:migrate
-
 Mount in your rails app config/routes.rb file
 
-    mount QueueClassicAdmin::Engine => "/queue_classic_admin"
-
-# Development
-
-You can develop with POW by configuring it like so:
-
-```bash
-ln -s $PWD/spec/dummy ~/.pow/qc-admin
-(cd spec/dummy && rake db:create:all db:migrate)
-
-ln -s $PWD/spec/dummy-no-later ~/.pow/qc-admin-no-later
-(cd spec/dummy-no-later && rake db:create:all db:migrate)
+```ruby
+mount QueueClassicAdmin::Engine => "/queue_classic_admin"
 ```
-
-Then go to (http://qc-admin.dev/)[http://qc-admin.dev/].
