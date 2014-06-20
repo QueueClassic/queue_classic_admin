@@ -1,3 +1,10 @@
+<div id="search">
+  <%= form_tag(url_for(params), method: 'GET') do %>
+    <%= hidden_field_tag :q_name, params[:q_name] %>
+    <input class="search-query" name="search" placeholder="Search jobs" value="<%= params[:search] %>"/>
+  <% end %>
+</div>
+
 <ul class="nav nav-pills">
   <li class="<%= q_name_pill_class(nil)%>" >
     <a href="<%= index_path %>"><%= "All (#{@klass.count})" %></a>
@@ -8,13 +15,6 @@
     </li>
   <% end %>
 </ul>
-
-<div id="search">
-  <form>
-    <label for="search">Search</label>
-    <input name="search" placeholder="search" value="<%= params[:search] %>"/>
-  </form>
-</div>
 
 <table class="table table-striped table-bordered">
   <thead>
