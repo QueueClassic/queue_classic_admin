@@ -37,4 +37,4 @@ ln -s $PWD/spec/dummy-no-later ~/.pow/qc-admin-no-later
 (cd spec/dummy-no-later && rake db:create:all db:migrate)
 ```
 
-Then go to (http://qc-admin.dev/)[http://qc-admin.dev/].
+Then go to [http://qc-admin.dev/](http://qc-admin.dev/).
