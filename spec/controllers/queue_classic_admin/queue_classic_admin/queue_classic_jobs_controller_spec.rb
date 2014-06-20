@@ -4,6 +4,10 @@ module QueueClassicAdmin
   describe QueueClassicAdmin::QueueClassicJobsController do
     let(:queue_classic_job) { QueueClassicJob.create! }
 
+    before do
+      @request.env['HTTP_REFERER'] = 'http://example.org'
+    end
+
     it "should get index" do
       get :index, use_route: "queue_classic_admin"
       response.should be_success

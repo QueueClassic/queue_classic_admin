@@ -10,7 +10,7 @@ module QueueClassicAdmin
 
     def destroy
       @queue_classic_job.destroy
-      redirect_to queue_classic_jobs_url
+      redirect_to :back
     end
 
     def destroy_all
@@ -27,7 +27,7 @@ module QueueClassicAdmin
       @queue_classic_job.locked_at = nil
       @queue_classic_job.save
       
-      redirect_to queue_classic_jobs_url
+      redirect_to :back
     end
 
     private
