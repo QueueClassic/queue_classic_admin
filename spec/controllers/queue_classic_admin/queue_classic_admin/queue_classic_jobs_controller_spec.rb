@@ -9,21 +9,21 @@ module QueueClassicAdmin
       response.should be_success
       assigns(:queue_classic_jobs).should_not be_nil
     end
-  
+
     context "#destroy" do
       it "should destroy queue_classic_job" do
         queue_classic_job
         expect do
           delete :destroy, id: queue_classic_job.id, use_route: "queue_classic_admin"
         end.to change(QueueClassicJob, :count).by(-1)
-    
+
         response.code.to_i.should == 302
       end
     end
 
     context "#destroy_all" do
       it "should destroy everything" do
-        queue_classic_job 
+        queue_classic_job
         delete :destroy_all, use_route: "queue_classic_admin"
         QueueClassicJob.count.should == 0
       end
@@ -72,8 +72,21 @@ module QueueClassicAdmin
         locked_job = queue_classic_job
         locked_job.locked_at = Time.now
         locked_job.save!
-        post :unlock, use_route: "queue_classic_admin", id: locked_job 
+        post :unlock, use_route: "queue_classic_admin", id: locked_job
         locked_job.reload.locked_at.should be_nil
+      end
+    end
+
+    context "#custom" do
+      it "runs the custom action" do
+        custom_job = nil
+        QueueClassicAdmin.add_custom_action("Test") { |job| custom_job = job }
+        job = queue_classic_job
+
+        post :custom, use_route: "queue_classic_admin", id: job, custom_action: "test"
+
+        expect(custom_job).to_not be_nil
+        expect(custom_job).to eql(job)
       end
     end
   end
