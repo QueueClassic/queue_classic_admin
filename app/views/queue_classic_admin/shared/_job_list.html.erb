@@ -82,6 +82,9 @@
         <% if queue_classic_job[:locked_at] %>
           <%= link_to 'Unlock', unlock_queue_classic_job_path(queue_classic_job), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
         <% end %>
+        <% QueueClassicAdmin.custom_actions.each do |slug, action| %>
+          <%= link_to action.name, custom_queue_classic_job_path(queue_classic_job, custom_action: slug), method: :post, class: "btn btn-danger" %>
+        <% end %>
       </td>
     </tr>
   <% end %>
