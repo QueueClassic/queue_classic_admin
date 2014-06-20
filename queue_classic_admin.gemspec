@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.version     = QueueClassicAdmin::VERSION
   s.authors     = ["Simon Mathieu"]
   s.email       = ["simon.math@gmail.com"]
+  s.license     = 'MIT'
   s.homepage    = "https://github.com/rainforestapp/queue_classic_admin"
   s.summary     = "An admin interface for QueueClassic"
   s.description = "An admin interface for QueueClassic"
@@ -16,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.2.13"
+  s.add_dependency "rails", ">= 3.2.13"
   s.add_dependency "queue_classic", ">= 2.1.0"
   s.add_dependency "pg"
   s.add_dependency "will_paginate", ">= 3.0.0"

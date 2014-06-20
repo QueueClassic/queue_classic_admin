@@ -13,7 +13,7 @@ module QueueClassicAdmin
       redirect_to queue_classic_later_jobs_url
     end
 
-    def purge
+    def destroy_all
       filter_jobs(QueueClassicLaterJob).delete_all
       redirect_to queue_classic_jobs_url
     end
@@ -23,6 +23,11 @@ module QueueClassicAdmin
       queue_classic_later_jobs_path(*params)
     end
 
+    def later?
+      true
+    end
+
     helper_method :index_path
+    helper_method :later?
   end
 end
