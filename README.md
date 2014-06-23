@@ -14,15 +14,6 @@ An admin interface for the [queue_classic](https://github.com/ryandotsmith/queue
 * Delete entire queues
 * Delete jobs
 
-# Configuration
-
-## Custom searchable fields
-
-```ruby
-QueueClassicJob.searchable_columns << :my_custom_fields
-
-```
-
 
 # Install
 
@@ -34,6 +25,24 @@ Copy and run the migrations
 Mount in your rails app config/routes.rb file
 
     mount QueueClassicAdmin::Engine => "/queue_classic_admin"
+
+# Configuration
+
+## Custom searchable fields
+
+```ruby
+QueueClassicJob.searchable_columns << :my_custom_fields
+
+```
+
+## Custom job action
+
+```ruby
+QueueClassicAdmin.add_custom_action "Retry" do |job|
+  job.q_name = "low"
+  job.save!
+end
+```
 
 # Development
 
