@@ -16,3 +16,8 @@
 body .container-fluid .row-fluid {
   padding-top: 60px;
 }
+
+#search {
+  display: inline-block;
+  float: right;
+}
