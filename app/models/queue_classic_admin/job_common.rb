@@ -1,8 +1,8 @@
 module QueueClassicAdmin
   module JobCommon
     module ClassMethods
-      KNOWN_COLUMN = ["id", "q_name", "method", "args", "locked_at", "created_at", "not_before"]
-      SEARCHABLE_COLUMNS = [ :method, :args ]
+      KNOWN_COLUMN = ["id", "q_name", "method", "args", "locked_at", "created_at", "not_before"].freeze
+      SEARCHABLE_COLUMNS = [ :method, :args ].freeze
 
       def queue_counts
         group(:q_name).count
@@ -18,17 +18,17 @@ module QueueClassicAdmin
 
       def search(query)
         sql = searchable_columns.inject([]) do |sql, field|
-          sql << "#{field} LIKE ?"
+          sql << "#{field} LIKE :query"
         end.join(" OR ")
 
         wildcard_query = ["%", query, "%"].join
-        relation.where(sql, *([wildcard_query] * SEARCHABLE_COLUMNS.size))
+        relation.where(sql, query: wildcard_query)
       end
     end
 
     module InstanceMethods
       def arguments
-        JSON.parse(args)
+        MultiJson.decode(args)
       end
     end
 

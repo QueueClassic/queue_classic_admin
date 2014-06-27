@@ -31,16 +31,29 @@ module QueueClassicAdmin
     end
 
     context ".search" do
-      before do
-        create_job method: "thing1foo"
-        create_job method: "thing2bar"
-      end
+      let!(:job1) { create_job method: "thing1foo", q_name: 'high' }
+      let!(:job2) { create_job method: "thing2bar", q_name: 'low' }
 
       it "should work" do
         results = QueueClassicJob.search "foo"
-        expect(results.size).to be(1)
+        results.should == [job1]
       end
 
+      context "custom extra column" do
+        before do
+          @old_columns = described_class.searchable_columns.dup
+          described_class.searchable_columns << :q_name
+        end
+
+        after do
+          described_class.searchable_columns.replace(@old_columns)
+        end
+
+        it "should support extra columns" do
+          results = described_class.search('low')
+          results.should == [job2]
+        end
+      end
     end
   end
 end
