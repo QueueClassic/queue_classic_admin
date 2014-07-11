@@ -1,5 +1,7 @@
 require "queue_classic_admin/engine"
 require "queue_classic_admin/custom_action"
+require 'will_paginate'
+require "will_paginate-bootstrap"
 
 module QueueClassicAdmin
 

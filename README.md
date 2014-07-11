@@ -26,6 +26,13 @@ Mount in your rails app config/routes.rb file
 
     mount QueueClassicAdmin::Engine => "/queue_classic_admin"
 
+Add the following asset dependencies to your Gemfile
+
+```ruby
+gem "twitter-bootstrap-rails"
+gem "jquery-rails"
+```
+
 # Configuration
 
 ## Custom searchable fields
