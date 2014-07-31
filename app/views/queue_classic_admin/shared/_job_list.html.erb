@@ -50,11 +50,15 @@
       <td><%= queue_classic_job.q_name  %></td>
       <td><%= queue_classic_job.id  %></td>
       <td>
-        <%= time_ago_in_words queue_classic_job.created_at %>
-        <br/>
-        <small>
-          (<%= queue_classic_job.created_at %>)
-        </small>
+        <% if queue_classic_job.respond_to?(:created_at) %>
+          <%= time_ago_in_words queue_classic_job.created_at %>
+          <br/>
+          <small>
+            (<%= queue_classic_job.created_at %>)
+          </small>
+        <% else %>
+          &mdash;
+        <% end %>
       </td>
       <td>
         <% if queue_classic_job[:locked_at].nil? %>
