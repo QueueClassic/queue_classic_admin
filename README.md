@@ -13,8 +13,8 @@ An admin interface for the [queue_classic](https://github.com/ryandotsmith/queue
 * Support for custom columns
 * Delete entire queues
 * Delete jobs
-- Unlock jobs
-- Search
+* Unlock jobs
+* Search
 
 
 # Install
