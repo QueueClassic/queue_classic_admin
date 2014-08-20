@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140210194951) do
+ActiveRecord::Schema.define(:version => 20140820204316) do
 
   create_table "queue_classic_jobs", :force => true do |t|
     t.string   "q_name"
