@@ -59,10 +59,10 @@ You can develop with POW by configuring it like so:
 
 ```bash
 ln -s $PWD/spec/dummy ~/.pow/qc-admin
-(cd spec/dummy && rake db:create:all db:migrate)
+(cd spec/dummy && bundle exec rake db:create:all db:migrate)
 
 ln -s $PWD/spec/dummy-no-later ~/.pow/qc-admin-no-later
-(cd spec/dummy-no-later && rake db:create:all db:migrate)
+(cd spec/dummy-no-later && bundle exec rake db:create:all db:migrate)
 ```
 
 Then go to [http://qc-admin.dev/](http://qc-admin.dev/).
