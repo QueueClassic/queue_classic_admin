@@ -46,6 +46,7 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     builder (3.2.2)
+    coderay (1.1.0)
     diff-lcs (1.2.4)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -59,11 +60,19 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.2)
     mime-types (1.25.1)
     minitest (5.4.0)
     multi_json (1.10.1)
     pg (0.17.1)
     polyglot (0.3.5)
+    pry (0.10.0)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-remote (0.1.8)
+      pry (~> 0.9)
+      slop (~> 3.0)
     queue_classic (3.0.0)
       pg (~> 0.17.0)
     rack (1.5.2)
@@ -96,6 +105,7 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    slop (3.6.0)
     sprockets (2.12.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -127,6 +137,8 @@ PLATFORMS
 
 DEPENDENCIES
   jquery-rails
+  pry
+  pry-remote
   queue_classic
   queue_classic-later!
   queue_classic_admin!
