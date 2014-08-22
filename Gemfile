@@ -11,7 +11,7 @@ gem "queue_classic"
 gem "rspec-rails"
 gem "will_paginate"
 gem "will_paginate-bootstrap"
-gem "queue_classic-later"
+gem "queue_classic-later", github: 'dpiddy/queue_classic-later'
 
 
 # Declare any dependencies that are still in development here instead of in
