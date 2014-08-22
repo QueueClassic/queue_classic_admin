@@ -1,0 +1,5 @@
+<h1>Locks for PID <%= @locks.first['pid'] %></h1>
+<% @locks.each do |lock| %>
+  <hr>
+  <%= lock %>
+<% end %>
