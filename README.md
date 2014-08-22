@@ -54,11 +54,18 @@ end
 
 # Development
 
+```bash
+git clone git@github.com:rainforestapp/queue_classic_admin.git
+```
+
 You can develop with POW by configuring it like so:
 
 ```bash
 ln -s $PWD/spec/dummy ~/.pow/qc-admin
 (cd spec/dummy && bundle exec rake db:create:all db:migrate)
+# Run the engine's migration.
+bundle exec rake db:migrate
+(cd spec/dummy && bundle exec rake db:schema:dump)
 
 ln -s $PWD/spec/dummy-no-later ~/.pow/qc-admin-no-later
 (cd spec/dummy-no-later && bundle exec rake db:create:all db:migrate)
