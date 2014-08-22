@@ -48,7 +48,7 @@
   <% @queue_classic_jobs.each do |queue_classic_job| %>
     <tr>
       <td><%= queue_classic_job.q_name  %></td>
-      <td><%= queue_classic_job.id  %></td>
+      <td><%= link_to queue_classic_job.id, queue_classic_job  %></td>
       <td>
         <% if queue_classic_job.respond_to?(:created_at) %>
           <%= time_ago_in_words queue_classic_job.created_at %>
@@ -82,13 +82,10 @@
       <% end %>
 
       <td>
+        <%= link_to 'Details', queue_classic_job_path(queue_classic_job), class: 'btn btn-info' %>
         <%= link_to 'Destroy', queue_classic_job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
         <% if queue_classic_job[:locked_at] %>
           <%= link_to 'Unlock', unlock_queue_classic_job_path(queue_classic_job), method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-        <% end %>
-
-        <% if queue_classic_job[:locked_by] %>
-          <%= link_to 'See the DB locks', db_locks_queue_classic_job_path(queue_classic_job), class: 'btn btn-info' %>
         <% end %>
 
         <% QueueClassicAdmin.custom_actions.each do |slug, action| %>

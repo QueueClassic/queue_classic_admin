@@ -2,7 +2,7 @@ require_dependency "queue_classic_admin/application_controller"
 
 module QueueClassicAdmin
   class QueueClassicJobsController < ApplicationController
-    before_filter :get_job, only: [:destroy, :unlock, :custom, :db_locks]
+    before_filter :get_job, only: [:destroy, :unlock, :custom, :show]
     def index
       filter_jobs(QueueClassicJob)
       @queue_classic_jobs = @queue_classic_jobs.paginate(page: params[:page])
@@ -29,8 +29,9 @@ module QueueClassicAdmin
       redirect_to :back
     end
 
-    def db_locks
-      @locks = QueueClassicJob.connection.execute("SELECT * FROM pg_catalog.pg_locks lock JOIN pg_catalog.pg_stat_activity stat ON lock.pid = stat.pid WHERE lock.pid = #{@queue_classic_job.locked_by.to_i}")
+    def show
+      query = "SELECT * FROM pg_catalog.pg_locks lock JOIN pg_catalog.pg_stat_activity stat ON lock.pid = stat.pid WHERE lock.pid = #{@queue_classic_job.locked_by.to_i}"
+      @locks = QueueClassicJob.connection.execute(query)
     end
 
     def custom
