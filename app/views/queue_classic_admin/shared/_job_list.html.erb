@@ -23,6 +23,7 @@
       <%= sortable_column :id, "ID" %>
       <%= sortable_column :created_at, "Enqueued At" %>
       <%= sortable_column :locked_at, "Locked At" %>
+      <%= sortable_column :locked_by, "Locked By" %>
       <%= sortable_column :method, "Method" %>
       <%= sortable_column :args, "Arguments" %>
       <% if @klass.columns_hash['not_before'] %>
@@ -70,6 +71,9 @@
             (<%= queue_classic_job.locked_at %>)
           </small>
         <% end %>
+      </td>
+      <td>
+        <%= queue_classic_job[:locked_by] %>
       </td>
       <td><%= queue_classic_job.method  %></td>
       <td><%= queue_classic_job.arguments.inspect%></td>
