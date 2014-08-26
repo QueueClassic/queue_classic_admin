@@ -3,7 +3,7 @@ require 'will_paginate'
 module QueueClassicAdmin
   module JobCommon
     module ClassMethods
-      KNOWN_COLUMN = ["id", "q_name", "method", "args", "locked_at", "created_at", "not_before"].freeze
+      KNOWN_COLUMN = ["id", "q_name", "method", "args", "locked_at", "created_at", "not_before", "locked_by"].freeze
       SEARCHABLE_COLUMNS = [ :method, :args ].freeze
 
       def queue_counts
