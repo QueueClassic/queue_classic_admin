@@ -19,18 +19,24 @@ module QueueClassicAdmin
       end
 
       def search(query)
-        sql = searchable_columns.inject([]) do |sql, field|
-          sql << "#{field} LIKE :query"
-        end.join(" OR ")
+        sql = searchable_columns.map do |field|
+          unless field == :args && args_is_json?
+            "#{field} LIKE :query"
+          end
+        end.reject(&:nil?).join(" OR ")
 
         wildcard_query = ["%", query, "%"].join
         relation.where(sql, query: wildcard_query)
+      end
+
+      def args_is_json?
+        self.column_types["args"].type == :json
       end
     end
 
     module InstanceMethods
       def arguments
-        if self.class.column_types["args"].type == :json
+        if self.class.args_is_json?
           args
         else
           MultiJson.decode(args)
