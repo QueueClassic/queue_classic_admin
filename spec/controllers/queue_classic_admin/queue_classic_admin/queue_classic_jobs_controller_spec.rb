@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module QueueClassicAdmin
   describe QueueClassicAdmin::QueueClassicJobsController do
-    let(:queue_classic_job) { QueueClassicJob.create! }
+    let(:queue_classic_job) { QueueClassicJob.create!(q_name: 'default', method: 'Time.now', args: []) }
 
     before do
       @request.env['HTTP_REFERER'] = 'http://example.org'
@@ -33,8 +33,8 @@ module QueueClassicAdmin
       end
 
       it "should destroy all in the filtered queue" do
-        QueueClassicJob.create! q_name: 'foo'
-        QueueClassicJob.create! q_name: 'bar'
+        QueueClassicJob.create! q_name: 'foo', method: 'Time.now', args: []
+        QueueClassicJob.create! q_name: 'bar', method: 'Time.now', args: []
 
         delete :destroy_all, use_route: "queue_classic_admin", q_name: 'foo'
         QueueClassicJob.where(q_name: 'foo').count.should == 0
@@ -52,9 +52,9 @@ module QueueClassicAdmin
       let(:in_progress_time) { Time.now }
 
       before do
-        lock_job(QueueClassicJob.create!(q_name: 'bar'), broken_time)
-        lock_job(QueueClassicJob.create!(q_name: 'foo'), broken_time)
-        lock_job(QueueClassicJob.create!(q_name: 'foo'), in_progress_time)
+        lock_job(QueueClassicJob.create!(q_name: 'bar', method: 'Time.now', args: []), broken_time)
+        lock_job(QueueClassicJob.create!(q_name: 'foo', method: 'Time.now', args: []), broken_time)
+        lock_job(QueueClassicJob.create!(q_name: 'foo', method: 'Time.now', args: []), in_progress_time)
       end
 
       it "should unlock everything not currently running" do

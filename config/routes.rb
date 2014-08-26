@@ -14,6 +14,7 @@ QueueClassicAdmin::Engine.routes.draw do
     member do
       post :unlock
       post :custom
+      get :show
     end
   end
 

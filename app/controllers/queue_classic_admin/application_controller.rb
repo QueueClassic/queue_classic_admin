@@ -11,7 +11,7 @@ module QueueClassicAdmin
         @queue_classic_jobs = @queue_classic_jobs.search(params[:search])
       end
       if params[:sort].present?
-        @queue_classic_jobs = @queue_classic_jobs.reorder("#{params[:sort]} #{params[:dir]}")
+        @queue_classic_jobs = @queue_classic_jobs.reorder("#{params[:sort]} #{params[:dir]} NULLS LAST")
       end
       @queue_classic_jobs
     end
