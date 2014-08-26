@@ -12,6 +12,7 @@ PATH
       pg
       queue_classic (~> 3.0)
       rails (>= 4.0.9)
+      twitter-bootstrap-rails
       will_paginate (>= 3.0.0)
       will_paginate-bootstrap (>= 0.2.0)
 
@@ -49,8 +50,7 @@ GEM
     coderay (1.1.0)
     diff-lcs (1.2.4)
     erubis (2.7.0)
-    execjs (1.4.0)
-      multi_json (~> 1.0)
+    execjs (2.2.1)
     hike (1.2.3)
     i18n (0.6.11)
     jquery-rails (3.0.1)
@@ -122,9 +122,10 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.2.6)
+    twitter-bootstrap-rails (2.2.8)
       actionpack (>= 3.1)
       execjs
+      rails (>= 3.1)
       railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -144,6 +145,5 @@ DEPENDENCIES
   queue_classic_admin!
   rspec-rails
   sqlite3
-  twitter-bootstrap-rails
   will_paginate
   will_paginate-bootstrap
