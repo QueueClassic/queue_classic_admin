@@ -62,13 +62,13 @@
       </td>
       <td>
         <% if queue_classic_job[:locked_at].nil? %>
-        &mdash;
+          &mdash;
         <% else %>
-        <%= time_ago_in_words queue_classic_job.locked_at %>
-        <br/>
-        <small>
-          (<%= queue_classic_job.locked_at %>)
-        </small>
+          <%= time_ago_in_words queue_classic_job.locked_at %>
+          <br/>
+          <small>
+            (<%= queue_classic_job.locked_at %>)
+          </small>
         <% end %>
       </td>
       <td><%= queue_classic_job.method  %></td>
