@@ -8,6 +8,7 @@ module QueueClassicAdmin
         args.each do |k,v|
           job.send("#{k}=", v)
         end
+        job.args ||= []
         job.save!
       end
     end
