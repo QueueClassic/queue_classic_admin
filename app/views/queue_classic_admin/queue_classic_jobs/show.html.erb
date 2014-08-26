@@ -1,5 +1,5 @@
 <h1>Details for job #<%= @queue_classic_job.id %></h1>
-<%= @queue_classic_job.attributes.each do |attr, value| %>
+<% @queue_classic_job.attributes.each do |attr, value| %>
   <p>
     <strong><%= attr %></strong>: <%= value %>
   </p>
