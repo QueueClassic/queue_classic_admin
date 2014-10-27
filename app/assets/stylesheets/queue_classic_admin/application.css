@@ -21,3 +21,20 @@ body .container-fluid .row-fluid {
   display: inline-block;
   float: right;
 }
+
+td.arguments pre,
+td.last_error .content {
+  word-wrap: normal; /* overwride bootstrap's default */
+  white-space: pre;
+  overflow: auto;
+  width: 30em;
+}
+
+td.last_error .content {
+  height: 6em;
+}
+
+td.last_error .content:hover {
+  width: auto;
+  height: auto;
+}

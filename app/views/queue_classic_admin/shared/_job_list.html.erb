@@ -48,9 +48,9 @@
   <tbody>
   <% @queue_classic_jobs.each do |queue_classic_job| %>
     <tr>
-      <td><%= queue_classic_job.q_name  %></td>
-      <td><%= link_to queue_classic_job.id, queue_classic_job  %></td>
-      <td>
+      <td class="queue_name"><%= queue_classic_job.q_name  %></td>
+      <td class="id"><%= link_to queue_classic_job.id, queue_classic_job  %></td>
+      <td class="enqueued_at">
         <% if queue_classic_job.respond_to?(:created_at) %>
           <%= time_ago_in_words queue_classic_job.created_at %>
           <br/>
@@ -61,7 +61,7 @@
           &mdash;
         <% end %>
       </td>
-      <td>
+      <td class="locked_at">
         <% if queue_classic_job[:locked_at].nil? %>
           &mdash;
         <% else %>
@@ -72,17 +72,21 @@
           </small>
         <% end %>
       </td>
-      <td>
+      <td class="locked_by">
         <%= queue_classic_job[:locked_by] %>
       </td>
-      <td><%= queue_classic_job.method  %></td>
-      <td><%= queue_classic_job.arguments.inspect%></td>
+      <td class="method"><%= queue_classic_job.method  %></td>
+      <td class="arguments">
+        <pre><%= JSON.pretty_generate(queue_classic_job.arguments) %></pre>
+      </td>
       <% if @klass.columns_hash['not_before'] %>
         <td><%= queue_classic_job.not_before %></td>
       <% end %>
 
       <% @klass.extra_columns.each do |column| %>
-        <td><%= queue_classic_job[column] %></th>
+        <td class="<%= column %>">
+          <div class="content"><%= queue_classic_job[column] %></div>
+        </td>
       <% end %>
 
       <td>
