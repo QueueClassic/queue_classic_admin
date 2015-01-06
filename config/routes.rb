@@ -8,13 +8,14 @@ QueueClassicAdmin::Engine.routes.draw do
   resources :queue_classic_jobs do
     collection do
       delete :destroy_all
-      put :unlock_all
+      put    :unlock_all
+      post   :bulk_custom_action
     end
 
     member do
       post :unlock
       post :custom
-      get :show
+      get  :show
     end
   end
 

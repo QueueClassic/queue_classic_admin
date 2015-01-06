@@ -41,6 +41,9 @@
             link_to "Unlock Matching > 5 mins", url_for(params.merge(action: 'unlock_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :put}
           %>
         <% end %>
+        <% QueueClassicAdmin.custom_bulk_actions.each do |slug, action| %>
+          <%= link_to action.name, bulk_custom_action_queue_classic_jobs_path(params.merge(custom_action: slug)), class: 'btn btn-danger', data: {confirm: "Are you sure?"} %>
+        <% end %>
       </th>
     </tr>
   </thead>
