@@ -54,6 +54,14 @@ QueueClassicAdmin.add_custom_action "Retry" do |job|
 end
 ```
 
+## Custom action on matching jobs
+
+```ruby
+QueueClassicAdmin.add_bulk_custom_action "Retry" do |jobs|
+  jobs.update_all(q_name: "low")
+end
+```
+
 # Development
 
 ```bash

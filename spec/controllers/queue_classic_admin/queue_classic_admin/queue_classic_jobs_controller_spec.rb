@@ -71,6 +71,19 @@ module QueueClassicAdmin
       end
     end
 
+    context "#bulk_custom_action" do
+      it "runs the custom action on the jobs" do
+        custom_jobs = []
+        QueueClassicAdmin.add_custom_bulk_action("Test") { |jobs| custom_jobs = jobs }
+        job = queue_classic_job
+
+        post :bulk_custom_action, use_route: "queue_classic_admin", custom_action: "test"
+
+        expect(custom_jobs).to_not be_empty
+      end
+
+    end
+
     context "#unlock" do
       it "unlocks locked job" do
         locked_job = queue_classic_job

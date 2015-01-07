@@ -23,6 +23,15 @@ module QueueClassicAdmin
       redirect_to queue_classic_jobs_url
     end
 
+    def bulk_custom_action
+      jobs = filter_jobs(QueueClassicJob)
+
+      custom_action = QueueClassicAdmin.custom_bulk_actions[params[:custom_action]]
+      custom_action.action.call(jobs)
+
+      redirect_to queue_classic_jobs_url
+    end
+
     def unlock
       @queue_classic_job.locked_at = nil
       @queue_classic_job.save

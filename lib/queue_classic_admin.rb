@@ -14,5 +14,14 @@ module QueueClassicAdmin
     action = CustomAction.new(name, &block)
     custom_actions[action.slug] = action
   end
+
+  def self.custom_bulk_actions
+    @@custom_actions ||= {}
+  end
+
+  def self.add_custom_bulk_action(name, &block)
+    action = CustomAction.new(name, &block)
+    custom_actions[action.slug] = action
+  end
 end
 
