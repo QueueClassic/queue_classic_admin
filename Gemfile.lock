@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    queue_classic_admin (0.2.3)
+    queue_classic_admin (0.2.4)
       pg
       queue_classic (~> 3.0)
       rails (>= 4.0.9)
