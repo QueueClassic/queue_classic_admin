@@ -42,7 +42,7 @@
           %>
         <% end %>
         <% QueueClassicAdmin.custom_bulk_actions.each do |slug, action| %>
-          <%= link_to action.name, bulk_custom_action_queue_classic_jobs_path(params.merge(custom_action: slug)), class: 'btn btn-danger', data: {confirm: "Are you sure?"} %>
+          <%= link_to action.name, bulk_custom_action_queue_classic_jobs_path(params.merge(custom_action: slug)), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :post} %>
         <% end %>
       </th>
     </tr>
