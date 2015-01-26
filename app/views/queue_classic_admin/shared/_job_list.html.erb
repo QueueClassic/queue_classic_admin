@@ -36,7 +36,7 @@
         <%=
           link_to "Destroy Matching", url_for(params.merge(action: 'destroy_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
         %>
-        <% unless later? %>
+        <% unless scheduled? %>
           <%=
             link_to "Unlock Matching > 5 mins", url_for(params.merge(action: 'unlock_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :put}
           %>

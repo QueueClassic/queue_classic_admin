@@ -11,7 +11,6 @@ gem "queue_classic"
 gem "rspec-rails"
 gem "will_paginate"
 gem "will_paginate-bootstrap"
-gem "queue_classic-later", github: 'dpiddy/queue_classic-later'
 
 group :development, :test do
   gem "pry"
