@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140210194951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "queue_classic_jobs", force: true do |t|
+  create_table "queue_classic_jobs", id: :bigserial, force: :cascade do |t|
     t.text     "q_name",                       null: false
     t.text     "method",                       null: false
     t.json     "args",                         null: false
@@ -27,12 +27,11 @@ ActiveRecord::Schema.define(version: 20140210194951) do
 
   add_index "queue_classic_jobs", ["q_name", "id"], name: "idx_qc_on_name_only_unlocked", where: "(locked_at IS NULL)", using: :btree
 
-  create_table "queue_classic_later_jobs", force: true do |t|
-    t.string   "q_name"
-    t.string   "method"
+  create_table "queue_classic_later_jobs", id: false, force: :cascade do |t|
+    t.string   "q_name",     limit: 255
+    t.string   "method",     limit: 255
     t.text     "args"
     t.datetime "not_before"
-    t.datetime "created_at", default: "now()", null: false
   end
 
 end

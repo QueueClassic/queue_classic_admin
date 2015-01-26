@@ -1,5 +1,5 @@
 QueueClassicAdmin::Engine.routes.draw do
-  resources :queue_classic_later_jobs do
+  resources :queue_classic_scheduled_jobs do
     collection do
       delete :destroy_all
     end

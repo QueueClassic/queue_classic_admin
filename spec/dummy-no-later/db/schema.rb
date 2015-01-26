@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20130626005404) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "queue_classic_jobs", force: true do |t|
+  create_table "queue_classic_jobs", id: :bigserial, force: :cascade do |t|
     t.text     "q_name",                       null: false
     t.text     "method",                       null: false
     t.json     "args",                         null: false

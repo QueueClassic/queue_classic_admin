@@ -58,11 +58,11 @@ module QueueClassicAdmin
       @queue_classic_job = QueueClassicJob.find(params[:id])
     end
 
-    def later?
+    def scheduled?
       false
     end
 
     helper_method :index_path
-    helper_method :later?
+    helper_method :scheduled?
   end
 end

@@ -1,9 +1,9 @@
 module QueueClassicAdmin
   module ApplicationHelper
-    def has_qc_later?
-      QC.respond_to?(:enqueue_in) &&
-        defined?(QC::Later) &&
-        ActiveRecord::Base.connection.table_exists?(QC::Later::TABLE_NAME)
+
+    def has_qc_3_1?
+      QC.respond_to?(:enqueue_at) &&
+        ActiveRecord::Base.connection.column_exists?(QC.table_name, :scheduled_at)
     end
 
     def sortable_column(name, title)
