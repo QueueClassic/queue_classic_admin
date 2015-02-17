@@ -7,9 +7,10 @@
 
 <ul class="nav nav-pills">
   <li class="<%= q_name_pill_class(nil)%>" >
-    <a href="<%= index_path %>"><%= "All (#{@klass.count})" %></a>
+    <a href="<%= index_path %>"><%= "All (#{@scoped_jobs.count})" %></a>
   </li>
-  <% @klass.queue_counts.each do |q_name, count| %>
+
+  <% @scoped_jobs.queue_counts.each do |q_name, count| %>
     <li class="<%= q_name_pill_class(q_name) %>">
     <a href="<%= index_path(q_name: q_name) %>"><%= "#{q_name} (#{count})" %></a>
     </li>
