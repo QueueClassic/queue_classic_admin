@@ -3,12 +3,12 @@ require_dependency "queue_classic_admin/application_controller"
 module QueueClassicAdmin
   class QueueClassicScheduledJobsController < ApplicationController
     def index
-      filter_jobs(QueueClassicScheduledJob)
+      filter_jobs(QueueClassicJob)
       @queue_classic_jobs = @queue_classic_jobs.paginate(page: params[:page])
     end
-  
+
     def destroy
-      @queue_classic_scheduled_job = QueueClassicScheduledJob.find(params[:id])
+      @queue_classic_scheduled_job = QueueClassicJob.find(params[:id])
       @queue_classic_scheduled_job.destroy
       redirect_to queue_classic_scheduled_jobs_url
     end
