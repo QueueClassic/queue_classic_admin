@@ -4,6 +4,7 @@ module QueueClassicAdmin
   class QueueClassicScheduledJobsController < ApplicationController
     def index
       filter_jobs(QueueClassicJob)
+      @queue_classic_jobs = @queue_classic_jobs.scheduled
       @queue_classic_jobs = @queue_classic_jobs.paginate(page: params[:page])
     end
 
@@ -15,6 +16,7 @@ module QueueClassicAdmin
 
     def destroy_all
       filter_jobs(QueueClassicScheduledJob).delete_all
+      @queue_classic_jobs = @queue_classic_jobs.scheduled
       redirect_to queue_classic_jobs_url
     end
 

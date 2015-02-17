@@ -5,6 +5,7 @@ module QueueClassicAdmin
     before_filter :get_job, only: [:destroy, :unlock, :custom, :show]
     def index
       filter_jobs(QueueClassicJob)
+      @queue_classic_jobs = @queue_classic_jobs.ready
       @queue_classic_jobs = @queue_classic_jobs.paginate(page: params[:page])
     end
 
@@ -14,20 +15,22 @@ module QueueClassicAdmin
     end
 
     def destroy_all
-      filter_jobs(QueueClassicJob).delete_all
+      filter_jobs(QueueClassicJob)
+      @queue_classic_jobs.ready.delete_all
       redirect_to queue_classic_jobs_url
     end
 
     def unlock_all
-      filter_jobs(QueueClassicJob).where('locked_at < ?', 5.minutes.ago).update_all(locked_at: nil)
+      filter_jobs(QueueClassicJob)
+      @queue_classic_jobs.ready.where('locked_at < ?', 5.minutes.ago).update_all(locked_at: nil)
       redirect_to queue_classic_jobs_url
     end
 
     def bulk_custom_action
-      jobs = filter_jobs(QueueClassicJob)
-
+      filter_jobs(QueueClassicJob)
+      @queue_classic_jobs.ready
       custom_action = QueueClassicAdmin.custom_bulk_actions[params[:custom_action]]
-      custom_action.action.call(jobs)
+      custom_action.action.call(@queue_classic_jobs)
 
       redirect_to queue_classic_jobs_url
     end
