@@ -1,11 +1,5 @@
 module QueueClassicAdmin
   module ApplicationHelper
-
-    def has_qc_3_1?
-      QC.respond_to?(:enqueue_at) &&
-        ActiveRecord::Base.connection.column_exists?(QC.table_name, :scheduled_at)
-    end
-
     def sortable_column(name, title)
       opts = {sort: name}
       opts[:dir] = (params[:dir] == "asc" ? "desc" : "asc")
