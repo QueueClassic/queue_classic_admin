@@ -2,16 +2,7 @@ require 'spec_helper'
 
 module QueueClassicAdmin
   describe QueueClassicAdmin::QueueClassicScheduledJobsController do
-    def create_job args = {}
-      job = QueueClassicJob.new
-      job.q_name = args[:q_name] || 'default'
-      job.method = args[:method] || 'puts'
-      job.args = args[:args] || '1'
-      job.save!
-      job
-    end
-
-    let!(:queue_classic_job) { create_job }
+    let!(:queue_classic_job) { create_job_qc_job }
 
     it "should get index" do
       get :index, use_route: "queue_classic_admin"
@@ -34,8 +25,8 @@ module QueueClassicAdmin
       end
 
       it "should destroy the contents of the selected queue" do
-        create_job q_name: 'foo'
-        create_job q_name: 'bar'
+        create_job_qc_job q_name: 'foo'
+        create_job_qc_job q_name: 'bar'
 
         delete :destroy_all, use_route: "queue_classic_admin", q_name: 'foo'
         QueueClassicJob.where(q_name: 'foo').count.should == 0

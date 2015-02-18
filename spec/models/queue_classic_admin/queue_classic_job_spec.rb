@@ -2,17 +2,6 @@ require 'spec_helper'
 
 module QueueClassicAdmin
   describe QueueClassicJob do
-
-    def create_job(args)
-      QueueClassicJob.new.tap do |job|
-        args.each do |k,v|
-          job.send("#{k}=", v)
-        end
-        job.args ||= []
-        job.save!
-      end
-    end
-
     before do
       QueueClassicJob.connection.execute "
         ALTER TABLE #{QueueClassicJob.table_name} ADD COLUMN test_column VARCHAR(255)
@@ -32,8 +21,8 @@ module QueueClassicAdmin
     end
 
     context ".search" do
-      let!(:job1) { create_job method: "thing1foo", q_name: 'high' }
-      let!(:job2) { create_job method: "thing2bar", q_name: 'low' }
+      let!(:job1) { create_job_qc_job method: "thing1foo", q_name: 'high' }
+      let!(:job2) { create_job_qc_job method: "thing2bar", q_name: 'low' }
 
       it "should work" do
         results = QueueClassicJob.search "foo"
