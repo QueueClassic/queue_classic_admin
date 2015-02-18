@@ -2,7 +2,8 @@ require 'spec_helper'
 
 module QueueClassicAdmin
   describe QueueClassicAdmin::QueueClassicJobsController do
-    let(:queue_classic_job) { QueueClassicJob.create!(q_name: 'default', method: 'Time.now', args: []) }
+    let!(:queue_classic_job) { QueueClassicJob.create!(q_name: 'default', method: 'Time.now', args: []) }
+    let!(:scheduled_job) { create_job_qc_job scheduled_at: 1.minute.from_now }
 
     before do
       @request.env['HTTP_REFERER'] = 'http://example.org'
@@ -21,15 +22,18 @@ module QueueClassicAdmin
           delete :destroy, id: queue_classic_job.id, use_route: "queue_classic_admin"
         end.to change(QueueClassicJob, :count).by(-1)
 
+        expect(QueueClassicJob.where(id: scheduled_job.id).count).to eq 1
         response.code.to_i.should == 302
       end
     end
 
     context "#destroy_all" do
-      it "should destroy everything" do
-        queue_classic_job
+      it "should destroy everything that is not scheduled" do
+        QueueClassicJob.ready.count.should == 1
+        QueueClassicJob.scheduled.count.should == 1
         delete :destroy_all, use_route: "queue_classic_admin"
-        QueueClassicJob.count.should == 0
+        QueueClassicJob.ready.count.should == 0
+        QueueClassicJob.scheduled.count.should == 1
       end
 
       it "should destroy all in the filtered queue" do
@@ -59,7 +63,7 @@ module QueueClassicAdmin
 
       it "should unlock everything not currently running" do
         delete :unlock_all, use_route: "queue_classic_admin"
-        QueueClassicJob.where(locked_at: nil).count.should == 2
+        QueueClassicJob.where(locked_at: nil).count.should == 4
         QueueClassicJob.where(locked_at: in_progress_time).count.should == 1
       end
 

@@ -15,8 +15,8 @@ module QueueClassicAdmin
     end
 
     def destroy_all
-      filter_jobs(QueueClassicJob).delete_all
-      @queue_classic_jobs = @queue_classic_jobs.scheduled
+      filter_jobs(QueueClassicJob)
+      @queue_classic_jobs.scheduled.delete_all
       redirect_to queue_classic_jobs_url
     end
 
