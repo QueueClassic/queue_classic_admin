@@ -7,7 +7,6 @@ PATH
       rails (>= 4.0.9)
       twitter-bootstrap-rails
       will_paginate (>= 3.0.0)
-      will_paginate-bootstrap (>= 0.2.0)
 
 GEM
   remote: http://rubygems.org/

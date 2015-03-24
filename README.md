@@ -75,9 +75,6 @@ ln -s $PWD/spec/dummy ~/.pow/qc-admin
 # Run the engine's migration.
 bundle exec rake db:migrate
 (cd spec/dummy && bundle exec rake db:schema:dump)
-
-ln -s $PWD/spec/dummy-no-later ~/.pow/qc-admin-no-later
-(cd spec/dummy-no-later && bundle exec rake db:create:all db:migrate)
 ```
 
 Then go to [http://qc-admin.dev/](http://qc-admin.dev/).
