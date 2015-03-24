@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "queue_classic", "~> 3.0"
   s.add_dependency "pg"
   s.add_dependency "will_paginate", ">= 3.0.0"
-  s.add_dependency "twitter-bootstrap-rails"
+  s.add_dependency "will_paginate-bootstrap", ">= 0.2.0"
 
   s.add_development_dependency "sqlite3"
 end
