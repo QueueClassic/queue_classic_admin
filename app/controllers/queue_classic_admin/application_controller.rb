@@ -1,15 +1,17 @@
 module QueueClassicAdmin
   class ApplicationController < ActionController::Base
     protected
-    def filter_jobs(klass)
-      @klass = klass
+    def filter_jobs
+      @queue_classic_jobs = QueueClassicJob.order("id DESC")
+
       if self.class == QueueClassicScheduledJobsController
-        @scoped_jobs = klass.scheduled
+        @scoped_jobs = QueueClassicJob.scheduled
+        @queue_classic_jobs = @queue_classic_jobs.scheduled
       else
-        @scoped_jobs = klass.ready
+        @scoped_jobs = QueueClassicJob.ready
+        @queue_classic_jobs = @queue_classic_jobs.ready
       end
 
-      @queue_classic_jobs = klass.order("id DESC")
       if params[:q_name].present?
         @queue_classic_jobs = @queue_classic_jobs.where(q_name: params[:q_name])
       end

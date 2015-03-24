@@ -2,10 +2,9 @@ require_dependency "queue_classic_admin/application_controller"
 
 module QueueClassicAdmin
   class QueueClassicJobsController < ApplicationController
-    before_filter :get_job, only: [:destroy, :unlock, :custom, :show]
+    before_action :get_job, only: [:destroy, :unlock, :custom, :show]
+    before_action :filter_jobs, only: [:index, :destroy_all, :unlock_all, :bulk_custom_action]
     def index
-      filter_jobs(QueueClassicJob)
-      @queue_classic_jobs = @queue_classic_jobs.ready
       @queue_classic_jobs = @queue_classic_jobs.paginate(page: params[:page])
     end
 
@@ -15,20 +14,16 @@ module QueueClassicAdmin
     end
 
     def destroy_all
-      filter_jobs(QueueClassicJob)
-      @queue_classic_jobs.ready.delete_all
+      @queue_classic_jobs.delete_all
       redirect_to queue_classic_jobs_url
     end
 
     def unlock_all
-      filter_jobs(QueueClassicJob)
-      @queue_classic_jobs.ready.where('locked_at < ?', 5.minutes.ago).update_all(locked_at: nil)
+      @queue_classic_jobs.where('locked_at < ?', 5.minutes.ago).update_all(locked_at: nil)
       redirect_to queue_classic_jobs_url
     end
 
     def bulk_custom_action
-      filter_jobs(QueueClassicJob)
-      @queue_classic_jobs.ready
       custom_action = QueueClassicAdmin.custom_bulk_actions[params[:custom_action]]
       custom_action.action.call(@queue_classic_jobs)
 

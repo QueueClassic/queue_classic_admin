@@ -27,10 +27,10 @@
       <%= sortable_column :locked_by, "Locked By" %>
       <%= sortable_column :method, "Method" %>
       <%= sortable_column :args, "Arguments" %>
-      <% if @klass.columns_hash['not_before'] %>
+      <% if QueueClassicAdmin::QueueClassicJob.columns_hash['not_before'] %>
         <th>Run At</th>
       <% end %>
-      <% @klass.extra_columns.each do |column| %>
+      <% QueueClassicAdmin::QueueClassicJob.extra_columns.each do |column| %>
         <%= sortable_column column, column.titleize %>
       <% end %>
       <th>
@@ -81,11 +81,11 @@
       </td>
       <td><%= queue_classic_job.method  %></td>
       <td><%= queue_classic_job.arguments.inspect%></td>
-      <% if @klass.columns_hash['not_before'] %>
+      <% if QueueClassicAdmin::QueueClassicJob.columns_hash['not_before'] %>
         <td><%= queue_classic_job.not_before %></td>
       <% end %>
 
-      <% @klass.extra_columns.each do |column| %>
+      <% QueueClassicAdmin::QueueClassicJob.extra_columns.each do |column| %>
         <td><%= queue_classic_job[column] %></th>
       <% end %>
 

@@ -20,7 +20,7 @@ module QueueClassicAdmin
     end
 
     context "#destroy_all" do
-      it "should destroy everything" do
+      it "should destroy only scheduled jobs" do
         QueueClassicJob.ready.count.should == 1
         QueueClassicJob.scheduled.count.should == 1
         delete :destroy_all, use_route: "queue_classic_admin"
