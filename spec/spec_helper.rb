@@ -6,12 +6,14 @@ require 'rspec/autorun'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each do |file|
+  require file
+end
 
 
 RSpec.configure do |config|
   config.render_views
-  
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -38,4 +40,12 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  # RSpec versions before 3.0.0 automatically added metadata to specs based on
+  # their location on the filesystem. This was both confusing to new users and not
+  # desirable for some veteran users.
+  #
+  # In RSpec 3, this behavior must be explicitly enabled:
+  # https://relishapp.com/rspec/rspec-rails/docs/directory-structure
+  config.infer_spec_type_from_file_location!
 end

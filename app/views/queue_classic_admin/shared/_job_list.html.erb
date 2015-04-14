@@ -7,9 +7,10 @@
 
 <ul class="nav nav-pills">
   <li class="<%= q_name_pill_class(nil)%>" >
-    <a href="<%= index_path %>"><%= "All (#{@klass.count})" %></a>
+    <a href="<%= index_path %>"><%= "All (#{@scoped_jobs.count})" %></a>
   </li>
-  <% @klass.queue_counts.each do |q_name, count| %>
+
+  <% @scoped_jobs.queue_counts.each do |q_name, count| %>
     <li class="<%= q_name_pill_class(q_name) %>">
     <a href="<%= index_path(q_name: q_name) %>"><%= "#{q_name} (#{count})" %></a>
     </li>
@@ -26,17 +27,17 @@
       <%= sortable_column :locked_by, "Locked By" %>
       <%= sortable_column :method, "Method" %>
       <%= sortable_column :args, "Arguments" %>
-      <% if @klass.columns_hash['not_before'] %>
+      <% if QueueClassicAdmin::QueueClassicJob.columns_hash['not_before'] %>
         <th>Run At</th>
       <% end %>
-      <% @klass.extra_columns.each do |column| %>
+      <% QueueClassicAdmin::QueueClassicJob.extra_columns.each do |column| %>
         <%= sortable_column column, column.titleize %>
       <% end %>
       <th>
         <%=
           link_to "Destroy Matching", url_for(params.merge(action: 'destroy_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :delete}
         %>
-        <% unless later? %>
+        <% unless scheduled? %>
           <%=
             link_to "Unlock Matching > 5 mins", url_for(params.merge(action: 'unlock_all')), class: 'btn btn-danger', data: {confirm: "Are you sure?", method: :put}
           %>
@@ -80,11 +81,11 @@
       </td>
       <td><%= queue_classic_job.method  %></td>
       <td><%= queue_classic_job.arguments.inspect%></td>
-      <% if @klass.columns_hash['not_before'] %>
+      <% if QueueClassicAdmin::QueueClassicJob.columns_hash['not_before'] %>
         <td><%= queue_classic_job.not_before %></td>
       <% end %>
 
-      <% @klass.extra_columns.each do |column| %>
+      <% QueueClassicAdmin::QueueClassicJob.extra_columns.each do |column| %>
         <td><%= queue_classic_job[column] %></th>
       <% end %>
 

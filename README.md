@@ -2,16 +2,15 @@
 
 [![Build Status](https://travis-ci.org/QueueClassic/queue_classic_admin.png)](https://travis-ci.org/QueueClassic/queue_classic_admin)
 
-An admin interface for the [queue_classic](https://github.com/ryandotsmith/queue_classic) and [queue_classic-later](https://github.com/dpiddy/queue_classic-later) gems.
+An admin interface for the [queue_classic](https://github.com/QueueClassic/queue_classic) gem.
 
-**IMPORTANT: this branch is for QueueClassic 3. See the [queueclassic-2-support](https://github.com/dpiddy/queue_classic-later/tree/queueclassic-2-support) branch for prior version support.**
+**IMPORTANT**: this branch is for queue_classic 3.1. Support for queue_classic-later has been removed and replaced by queue_classic 3.1's implementation of scheduling instead.  See the [queueclassic-2-support](https://github.com/QueueClassic/queue_classic_admin/tree/queueclassic-2-support) and [queueclassic-3-support](https://github.com/QueueClassic/queue_classic_admin/tree/queueclassic-3-support) branches for prior version support.
 
 ![qc admin](https://f.cloud.github.com/assets/148622/865030/9b1b2610-f62e-11e2-8908-8c271bfe0f6c.png)
 
-
 # Features
 
-* Support for [queue_classic-later](https://github.com/dpiddy/queue_classic-later)
+* Support for QueueClassic 3.1's future job scheduling: **enqueue_at()** and **enqueue_in()**
 * Support for custom columns
 * Delete entire queues
 * Delete jobs
@@ -76,9 +75,6 @@ ln -s $PWD/spec/dummy ~/.pow/qc-admin
 # Run the engine's migration.
 bundle exec rake db:migrate
 (cd spec/dummy && bundle exec rake db:schema:dump)
-
-ln -s $PWD/spec/dummy-no-later ~/.pow/qc-admin-no-later
-(cd spec/dummy-no-later && bundle exec rake db:create:all db:migrate)
 ```
 
 Then go to [http://qc-admin.dev/](http://qc-admin.dev/).
