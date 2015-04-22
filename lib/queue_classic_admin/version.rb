@@ -1,3 +1,3 @@
 module QueueClassicAdmin
-  VERSION = "0.2.5"
+  VERSION = "1.0.0.beta1"
 end
