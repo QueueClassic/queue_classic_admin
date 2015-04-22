@@ -11,7 +11,7 @@ module QueueClassicAdmin
     end
 
     initializer :assets do
-      Rails.application.config.assets.paths << QueueClassicAdmin::Engine.root.join('vendor', 'assets', 'stylesheets', 'qc-admin-bootstrap')
+      Rails.application.config.assets.paths << QueueClassicAdmin::Engine.root.join('vendor', 'assets', 'stylesheets', 'qc-admin-bootstrap').to_s
     end
 
   end
