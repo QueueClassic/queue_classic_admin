@@ -12,3 +12,5 @@ spec/dummy-no-later/.sass-cache
 tags
 .DS_Store
 test/
+
+Gemfile.lock
