@@ -34,11 +34,7 @@ module QueueClassicAdmin
 
     module InstanceMethods
       def arguments
-        if self.class.args_is_json?
-          args
-        else
-          MultiJson.decode(args)
-        end
+        args
       end
     end
 

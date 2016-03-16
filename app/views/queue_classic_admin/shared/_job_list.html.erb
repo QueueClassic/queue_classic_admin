@@ -34,7 +34,6 @@
       <%= sortable_column :created_at, "Enqueued At" %>
       <%= sortable_column :locked_at, "Locked At" %>
       <%= sortable_column :locked_by, "Locked By" %>
-      <%= sortable_column :method, "Method" %>
       <%= sortable_column :args, "Arguments" %>
       <% if QueueClassicAdmin::QueueClassicJob.columns_hash["not_before"] %>
         <th>Run At</th>
@@ -80,7 +79,6 @@
       <td>
         <%= queue_classic_job[:locked_by] %>
       </td>
-      <td><%= queue_classic_job.method  %></td>
       <td><%= queue_classic_job.arguments.inspect%></td>
       <% if QueueClassicAdmin::QueueClassicJob.columns_hash["not_before"] %>
         <td><%= queue_classic_job.not_before %></td>
