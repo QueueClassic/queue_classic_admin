@@ -9,7 +9,5 @@ module QueueClassicAdmin
     def slug
       name.underscore
     end
-
   end
 end
-

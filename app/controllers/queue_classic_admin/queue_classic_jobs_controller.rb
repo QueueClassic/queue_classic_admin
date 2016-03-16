@@ -4,8 +4,8 @@ module QueueClassicAdmin
   class QueueClassicJobsController < ApplicationController
     before_action :get_job, only: [:destroy, :unlock, :custom, :show]
     before_action :filter_jobs, only: [:index, :destroy_all, :unlock_all, :bulk_custom_action]
+
     def index
-      @queue_classic_jobs = @queue_classic_jobs.paginate(page: params[:page])
     end
 
     def destroy
@@ -48,6 +48,7 @@ module QueueClassicAdmin
     end
 
     private
+    
     def index_path(*params)
       queue_classic_jobs_path(*params)
     end

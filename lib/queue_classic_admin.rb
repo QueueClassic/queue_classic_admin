@@ -1,10 +1,7 @@
 require "queue_classic_admin/engine"
 require "queue_classic_admin/custom_action"
-require 'will_paginate'
-require "will_paginate-bootstrap"
 
 module QueueClassicAdmin
-
   def self.custom_actions
     @@custom_actions ||= {}
   end
@@ -23,4 +20,3 @@ module QueueClassicAdmin
     custom_bulk_actions[action.slug] = action
   end
 end
-
