@@ -1,5 +1,3 @@
-require 'will_paginate'
-
 module QueueClassicAdmin
   module JobCommon
     module ClassMethods
