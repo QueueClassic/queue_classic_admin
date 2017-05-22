@@ -1,6 +1,6 @@
 # Queue Classic Admin
 
-[![Build Status](https://travis-ci.org/QueueClassic/queue_classic_admin.png)](https://travis-ci.org/QueueClassic/queue_classic_admin)
+[![Build Status](https://travis-ci.org/QueueClassic/queue_classic_admin.svg)](https://travis-ci.org/QueueClassic/queue_classic_admin)
 
 An admin interface for the [queue_classic](https://github.com/QueueClassic/queue_classic) gem.
 
