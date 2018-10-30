@@ -4,7 +4,7 @@ module QueueClassicAdmin
       opts = {sort: name}
       opts[:dir] = (params[:dir] == "asc" ? "desc" : "asc")
       content_tag :th do
-        s = link_to title, params.merge(opts)
+        s = link_to title, params.merge(opts).permit
         if params[:sort] == name.to_s
           icon = if params[:dir] == 'asc'
             "&uarr;"

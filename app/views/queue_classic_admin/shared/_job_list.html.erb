@@ -14,7 +14,7 @@
 
   <div class="col-md-4">
     <div id="search" class="pull-md-right">
-      <%= form_tag(url_for(params), method: "GET", class: "form-inline") do %>
+      <%= form_tag(url_for(params.permit), method: "GET", class: "form-inline") do %>
         <%= hidden_field_tag :q_name, params[:q_name] %>
         <div class="form-group">
           <input class="search-query form-control" name="search" placeholder="Search ..." value="<%= params[:search] %>"/>
@@ -110,12 +110,12 @@
       <strong style="color: white">Danger Zone</strong>
     </p>
     <p>
-      <%= link_to "Destroy Matching", url_for(params.merge(action: "destroy_all")), class: "btn btn-sm btn-danger-outline btn-inverse", data: { confirm: "Are you sure?", method: :delete } %>
+      <%= link_to "Destroy Matching", url_for(params.merge(action: "destroy_all").permit), class: "btn btn-sm btn-danger-outline btn-inverse", data: { confirm: "Are you sure?", method: :delete } %>
       <% unless scheduled? %>
-        <%= link_to "Unlock Matching > 5 mins", url_for(params.merge(action: "unlock_all")), class: "btn btn-sm btn-danger-outline btn-inverse", data: { confirm: "Are you sure?", method: :put } %>
+        <%= link_to "Unlock Matching > 5 mins", url_for(params.merge(action: "unlock_all").permit), class: "btn btn-sm btn-danger-outline btn-inverse", data: { confirm: "Are you sure?", method: :put } %>
       <% end %>
       <% QueueClassicAdmin.custom_bulk_actions.each do |slug, action| %>
-        <%= link_to action.name, bulk_custom_action_queue_classic_jobs_path(params.merge(custom_action: slug)), class: "btn btn-sm btn-danger-outliner btn-inverse", data: { confirm: "Are you sure?", method: :post } %>
+        <%= link_to action.name, bulk_custom_action_queue_classic_jobs_path(params.merge(custom_action: slug).permit), class: "btn btn-sm btn-danger-outliner btn-inverse", data: { confirm: "Are you sure?", method: :post } %>
       <% end %>
     </p>
   </div>
