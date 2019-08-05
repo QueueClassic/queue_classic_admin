@@ -30,7 +30,7 @@ module QueueClassicAdmin
       end
 
       def args_is_json?
-        self.column_types["args"].type == :json
+        self.column_for_attribute["args"].type == :json
       end
     end
 
