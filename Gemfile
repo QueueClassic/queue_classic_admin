@@ -10,6 +10,7 @@ gem "jquery-rails"
 gem "rspec-rails"
 
 group :development, :test do
+  gem 'rails-controller-testing'
   gem "pry"
   gem "pry-remote"
 end
