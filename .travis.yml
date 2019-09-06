@@ -1,4 +1,6 @@
 language: ruby
+services:
+  - postgresql
 before_script:
   - "bundle exec rake db:create"
   - "bundle exec rake db:schema:load RAILS_ENV=test"
@@ -6,5 +8,3 @@ rvm:
   - 2.4.1
   - 2.3.4
   - 2.2.7
-addons:
-  postgresql: "9.3"
