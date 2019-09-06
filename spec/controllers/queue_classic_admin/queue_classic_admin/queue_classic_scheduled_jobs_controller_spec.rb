@@ -6,14 +6,14 @@ module QueueClassicAdmin
     let!(:scheduled_job) { create_job_qc_job scheduled_at: 1.minute.from_now }
 
     it "should get index" do
-      get :index, use_route: "queue_classic_admin"
+      get :index, params: { use_route: "queue_classic_admin" }
       response.should be_success
       assigns(:queue_classic_jobs).should_not be_nil
     end
 
     it "should destroy queue_classic_job" do
       expect do
-        delete :destroy, id: queue_classic_job.id, use_route: "queue_classic_admin"
+        delete :destroy, params: { id: queue_classic_job.id, use_route: "queue_classic_admin" }
       end.to change(QueueClassicJob, :count).by(-1)
 
       response.code.to_i.should == 302
@@ -23,7 +23,7 @@ module QueueClassicAdmin
       it "should destroy only scheduled jobs" do
         QueueClassicJob.ready.count.should == 1
         QueueClassicJob.scheduled.count.should == 1
-        delete :destroy_all, use_route: "queue_classic_admin"
+        delete :destroy_all, params: { use_route: "queue_classic_admin" }
         QueueClassicJob.ready.count.should == 1
         QueueClassicJob.scheduled.count.should == 0
       end
@@ -34,7 +34,7 @@ module QueueClassicAdmin
         create_job_qc_job q_name: 'bar'
 
 
-        delete :destroy_all, use_route: "queue_classic_admin", q_name: 'foo'
+        delete :destroy_all, params: { use_route: "queue_classic_admin", q_name: 'foo' }
         QueueClassicJob.where(q_name: 'foo').count.should == 1
         QueueClassicJob.where(q_name: 'bar').count.should == 1
       end
