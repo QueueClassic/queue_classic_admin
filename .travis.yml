@@ -3,8 +3,8 @@ before_script:
   - "bundle exec rake db:create"
   - "bundle exec rake db:schema:load RAILS_ENV=test"
 rvm:
-  - 2.4.6
-  - 2.3.8
-  - 2.2.10
+  - 2.6.4
+  - 2.5.6
+  - 2.4.7
 addons:
   postgresql: "9.4"
