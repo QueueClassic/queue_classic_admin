@@ -1,4 +1,4 @@
-class AddCreatedColumn < ActiveRecord::Migration
+class AddCreatedColumn < ActiveRecord::Migration[4.2]
   def up
     %w(queue_classic_later_jobs).each do |table|
       if ActiveRecord::Base.connection.table_exists?(table)
