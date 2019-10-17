@@ -37,7 +37,7 @@ module QueueClassicAdmin
                  # rails >= 4.2.x
                  self.type_for_attribute('args').type
                end
-        type == :json
+        type.in?(%i(json jsonb))
       end
     end
 
