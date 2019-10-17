@@ -11,7 +11,7 @@ module QueueClassicAdmin
 
     it "gets index" do
       get :index, params: { use_route: "queue_classic_admin" }
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(assigns(:queue_classic_jobs)).to_not be_nil
     end
 
