@@ -17,7 +17,7 @@ module QueueClassicAdmin
     end
 
     it "list extra columns" do
-      QueueClassicJob.extra_columns.should == ["test_column"]
+      expect(QueueClassicJob.extra_columns).to contain_exactly('test_column')
     end
 
     describe '.ready' do
@@ -42,9 +42,9 @@ module QueueClassicAdmin
       let!(:job1) { create_job_qc_job method: "thing1foo", q_name: 'high' }
       let!(:job2) { create_job_qc_job method: "thing2bar", q_name: 'low' }
 
-      it "should work" do
+      it "works" do
         results = QueueClassicJob.search "foo"
-        results.should == [job1]
+        expect(results).to contain_exactly(job1)
       end
 
       context "custom extra column" do
@@ -57,9 +57,9 @@ module QueueClassicAdmin
           described_class.searchable_columns.replace(@old_columns)
         end
 
-        it "should support extra columns" do
+        it "supports extra columns" do
           results = described_class.search('low')
-          results.should == [job2]
+          expect(results).to contain_exactly(job2)
         end
       end
     end
