@@ -30,13 +30,7 @@ module QueueClassicAdmin
       end
 
       def args_is_json?
-        type = if self.respond_to?(:column_types)
-                 # rails < 4.2.x
-                 self.column_types['args'].type
-               else
-                 # rails >= 4.2.x
-                 self.type_for_attribute('args').type
-               end
+        type = self.type_for_attribute('args').type
         type.in?(%i(json jsonb))
       end
     end
