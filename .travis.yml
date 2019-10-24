@@ -6,6 +6,6 @@ before_script:
   - "bundle exec rake db:schema:load RAILS_ENV=test"
   - "bundle exec rake db:migrate RAILS_ENV=test"
 rvm:
-  - 2.4.1
-  - 2.3.4
-  - 2.2.7
+  - 2.6.5
+  - 2.5.7
+  - 2.4.9
