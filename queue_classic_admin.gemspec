@@ -17,11 +17,11 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", ">= 5.0.0", "< 5.2"
-  s.add_dependency "queue_classic", ">= 3.0"
-  s.add_dependency "pg"
-  s.add_dependency "will_paginate", ">= 3.0.0"
-  s.add_dependency "will_paginate-bootstrap", ">= 0.2.0"
+  s.add_runtime_dependency "rails", ">= 5.0.0", "< 6.0"
+  s.add_runtime_dependency "queue_classic", "4.0.0.pre.alpha1"
+  s.add_runtime_dependency "pg"
+  s.add_runtime_dependency "will_paginate", ">= 3.0.0"
+  s.add_runtime_dependency "will_paginate-bootstrap", ">= 0.2.0"
 
   s.add_development_dependency "sqlite3"
 end
