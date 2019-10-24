@@ -13,5 +13,4 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem "pry"
   gem "pry-remote"
-  gem 'queue_classic', git: 'https://github.com/siegy22/queue_classic', ref: '3a353288660e7ff687e2fc47e9ecfcdad9687127'
 end
