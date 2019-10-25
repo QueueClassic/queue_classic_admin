@@ -5,38 +5,38 @@ module QueueClassicAdmin
     let!(:queue_classic_job) { create_job_qc_job }
     let!(:scheduled_job) { create_job_qc_job scheduled_at: 1.minute.from_now }
 
-    it "should get index" do
-      get :index, use_route: "queue_classic_admin"
-      response.should be_success
-      assigns(:queue_classic_jobs).should_not be_nil
+    it "gets index" do
+      get :index, params: { use_route: "queue_classic_admin" }
+      expect(response).to be_successful
+      expect(assigns(:queue_classic_jobs)).to_not be_nil
     end
 
-    it "should destroy queue_classic_job" do
+    it "destroys queue_classic_job" do
       expect do
-        delete :destroy, id: queue_classic_job.id, use_route: "queue_classic_admin"
+        delete :destroy, params: { id: queue_classic_job.id, use_route: "queue_classic_admin" }
       end.to change(QueueClassicJob, :count).by(-1)
 
-      response.code.to_i.should == 302
+      expect(response.code.to_i).to eq(302)
     end
 
     context "#destroy_all" do
-      it "should destroy only scheduled jobs" do
-        QueueClassicJob.ready.count.should == 1
-        QueueClassicJob.scheduled.count.should == 1
-        delete :destroy_all, use_route: "queue_classic_admin"
-        QueueClassicJob.ready.count.should == 1
-        QueueClassicJob.scheduled.count.should == 0
+      it "destroys only scheduled jobs" do
+        expect(QueueClassicJob.ready.count).to eq(1)
+        expect(QueueClassicJob.scheduled.count).to eq(1)
+        delete :destroy_all, params: { use_route: "queue_classic_admin" }
+        expect(QueueClassicJob.ready.count).to eq(1)
+        expect(QueueClassicJob.scheduled.count).to eq(0)
       end
 
-      it "should destroy the contents of the selected queue but only scheduled jobs" do
+      it "destroys the contents of the selected queue but only scheduled jobs" do
         create_job_qc_job q_name: 'foo'
         create_job_qc_job q_name: 'foo', scheduled_at: 1.minute.from_now
         create_job_qc_job q_name: 'bar'
 
 
-        delete :destroy_all, use_route: "queue_classic_admin", q_name: 'foo'
-        QueueClassicJob.where(q_name: 'foo').count.should == 1
-        QueueClassicJob.where(q_name: 'bar').count.should == 1
+        delete :destroy_all, params: { use_route: "queue_classic_admin", q_name: 'foo' }
+        expect(QueueClassicJob.where(q_name: 'foo').count).to eq(1)
+        expect(QueueClassicJob.where(q_name: 'bar').count).to eq(1)
       end
     end
   end

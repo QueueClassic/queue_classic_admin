@@ -30,7 +30,8 @@ module QueueClassicAdmin
       end
 
       def args_is_json?
-        self.column_types["args"].type == :json
+        type = self.type_for_attribute('args').type
+        type.in?(%i(json jsonb))
       end
     end
 

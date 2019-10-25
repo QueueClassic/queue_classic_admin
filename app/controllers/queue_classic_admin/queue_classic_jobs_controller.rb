@@ -10,7 +10,7 @@ module QueueClassicAdmin
 
     def destroy
       @queue_classic_job.destroy
-      redirect_to :back
+      redirect_back fallback_location: {action: :index}
     end
 
     def destroy_all
@@ -33,7 +33,7 @@ module QueueClassicAdmin
     def unlock
       @queue_classic_job.locked_at = nil
       @queue_classic_job.save
-      redirect_to :back
+      redirect_back fallback_location: {action: :index}
     end
 
     def show
@@ -44,7 +44,7 @@ module QueueClassicAdmin
     def custom
       custom_action = QueueClassicAdmin.custom_actions[params[:custom_action]]
       custom_action.action.call(@queue_classic_job)
-      redirect_to :back
+      redirect_back fallback_location: {action: :index}
     end
 
     private

@@ -1,5 +1,5 @@
 <div id="search">
-  <%= form_tag(url_for(params), method: 'GET') do %>
+  <%= form_tag(url_for(params.permit!), method: 'GET') do %>
     <%= hidden_field_tag :q_name, params[:q_name] %>
     <input class="search-query" name="search" placeholder="Search jobs" value="<%= params[:search] %>"/>
   <% end %>
