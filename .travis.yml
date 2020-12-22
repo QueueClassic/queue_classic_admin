@@ -3,8 +3,7 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database dummy_qc_admin_test;' -U postgres
-  - "bundle exec rake db:schema:load RAILS_ENV=test"
-  - "bundle exec rake db:migrate RAILS_ENV=test"
+  - "bundle exec rake db:schema:load db:migrate RAILS_ENV=test"
 rvm:
   - 2.7.2
   - 2.6.6
