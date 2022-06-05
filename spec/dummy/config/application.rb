@@ -50,6 +50,9 @@ module Dummy
     config.assets.version = '1.0'
 
     config.eager_load = false
+
+    # Disable ActiveRecord legacy connection handling
+    config.active_record.legacy_connection_handling = false
   end
 end
 
