@@ -9,6 +9,9 @@ gemspec
 gem "jquery-rails"
 gem "rspec-rails"
 
+# rails 7.0+ no longer depends on Sprockets by default
+gem "sprockets-rails"
+
 group :development, :test do
   gem 'rails-controller-testing'
   gem "pry"
